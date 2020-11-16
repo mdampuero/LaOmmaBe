@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Run Dockers ###
 ```
-$ cd urdapilleta/docker 
+$ cd LaOmmaBe/docker 
 $ docker-compose up -d
 ```
 ### Instalar dependencias ###
