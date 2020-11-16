@@ -1,0 +1,39 @@
+api_projects:
+    path:     /projects
+    defaults: { _controller: InamikaApiBundle:Projects:index }
+    methods: [GET]
+
+api_projects_get:
+    path:     /projects/{id}
+    defaults: { _controller: InamikaApiBundle:Projects:get }
+    methods: [GET]
+
+api_projects_units:
+    path:     /projects/{id}/units
+    defaults: { _controller: InamikaApiBundle:Projects:units }
+    methods: [GET]
+
+api_projects_units_total:
+    path:     /projects/{id}/unitsTotal
+    defaults: { _controller: InamikaApiBundle:Projects:unitsTotal }
+    methods: [GET]
+
+api_projects_post:
+    path:     /projects
+    defaults: { _controller: InamikaApiBundle:Projects:post }
+    methods: [POST]
+
+api_projects_put:
+    path:     /projects/{id}
+    defaults: { _controller: InamikaApiBundle:Projects:put }
+    methods: [PUT]
+
+api_projects_levels:
+    path:     /projects/{id}/levels
+    defaults: { _controller: InamikaApiBundle:Projects:levels }
+    methods: [POST]
+
+api_projects_delete:
+    path:     /projects/{id}
+    defaults: { _controller: InamikaApiBundle:Projects:delete }
+    methods: [DELETE]

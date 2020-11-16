@@ -1,0 +1,39 @@
+{% if entity.map %}
+    {% if mode == 'DRAG'%}
+    <div class="map-container" id="map-container" style="height: {{ mapSize[1] + 20 | raw }}px;">
+        <img id="containment-wrapper" src="{{ asset('uploads/or/' ~ entity.map) }}">
+    </div>
+    {% endif  %}
+    {% if mode == 'VIEW'%}
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="fixme" style="width: 100%; z-index: 500;">
+                <div class="btn-group m-b-15">
+                    <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-circle btn-warning" onclick="zoom(1)" title="Acercar"><i class="fa fa-search-plus"></i></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-circle btn-warning" onclick="zoom(-1)" title="Alejar"><i class="fa fa-search-minus"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10 text-right">
+            <select class="selectpicker" multiple title="Filtrar por estado" id="filterStatus" data-style="btn-info">
+                {% for status in unitStatus %}
+                    <option {% if status.isDefault %}selected="selected"{% endif %} value='{{ status.id}}' data-content="<i class='fa fa-tag fa-1x' style='color:{{ status.color}}'></i> {{ status.name}}"></option>
+                {% endfor %}
+            </select>
+            <select class="selectpicker" multiple title="Filtrar por tipo" id="filterType" data-style="btn-info">
+                {% for type in unitType %}
+                    <option {% if type.isDefault %}selected="selected"{% endif %} value='{{ type.id}}' data-content="<i class='{{ type.icon}} fa-1x'></i> {{ type.name}}"></option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div id="scrollbooster-viewport" class="scrollbooster-viewport" style="height: {{ mapSize[1] + 20 | raw }}px;">
+        <div id="map-container" class="scrollbooster-content" >
+            <img id="containment-wrapper" src="{{ asset('uploads/or/' ~ entity.map) }}" alt="">
+        </div>
+    </div>
+    {% include 'InamikaBackOfficeBundle:_partials:modal.html.twig' with { pathBase:'inamika_backoffice_units'} %}
+    {% endif  %}
+{% else %}
+    <p>No hay ningún {{ 'MAP_OR_IMPLANTATION' | trans }} cargado</p>
+{% endif %}

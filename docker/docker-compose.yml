@@ -1,0 +1,40 @@
+version: "3"
+services:
+    service_apache:
+        build: .
+        image: php:7.4-apache
+        container_name: service_apache
+        extra_hosts:
+            - "urdapilleta.com:127.0.0.1"
+        volumes:
+            - ".:/app:cached"
+            - ../www/:/var/www/html
+            - ./config/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./config/urdapilleta.conf:/etc/apache2/sites-enabled/urdapilleta.conf
+            - ../logs:/var/log/apache2
+        expose:
+            - 80
+        ports:
+            - 80:80
+        links: 
+            - service_mysql
+            - service_memcached
+
+    service_mysql:
+        image: mysql:5.7
+        container_name: service_mysql
+        ports:
+            - 3306:3306
+        expose:
+            - 3306
+        volumes:
+            - ../db/working:/var/lib/mysql
+            - ../db/backups:/var/db/backups
+        environment:
+            - MYSQL_DATABASE=urdapilleta
+            - MYSQL_ROOT_PASSWORD=Secreta007
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=Secreta007
+    service_memcached:
+        image: memcached:latest
+        container_name: service_memcached

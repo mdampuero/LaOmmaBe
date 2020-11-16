@@ -1,0 +1,225 @@
+{% block stylesheet %}
+	<link href="{{ asset('bundles/inamikabackoffice/css/pages/user-card.css') }}" id="theme" rel="stylesheet">
+{% endblock %}
+
+{% set pathBase='inamika_backoffice_projects' %}
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block headerPage %}
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">
+        {% if app.request.attributes.get('_route_params')._breadcrumbs is defined %}
+            {{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}
+        {% endif %}
+        </h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ path('inamika_backoffice_homepage') }}" >Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('inamika_backoffice_projects') }}" >{{ 'PROJECTS' | trans}}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('inamika_backoffice_projects_landing',{ 'id': entity.id }) }}" >{{ entity.name }}</a>
+            </li>
+            <li class="breadcrumb-item active">
+                {{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}
+            </li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
+{% block body %}
+	{{ parent()}}
+    {% include 'InamikaBackOfficeBundle:Projects/_partials:actions.html.twig' with { entity:entity } %}
+    <h3 class="card-title text-right">
+        <button type="button" class="btn btn-primary btn-rounded" onclick="addLevel()"><i class="fa fa-plus"></i> {{ 'ADD_LEVELS' | trans }}</button>
+    </h3>
+    <div id="levels-container">
+    </div>
+    <hr>
+	<div class="form-actions">
+		<button type="button" class="btn btn-success" onclick="save()">
+			<i class="fa fa-check"></i>
+			{{ 'SAVE' | trans }}</button>
+		<button type="button" class="btn btn-inverse" onclick="location.href='{{ path(pathBase) }}'">{{ 'CANCEL' | trans }}</button>
+	</div>
+{% endblock body %}
+{% block javascripts %}
+	{{ parent() }}
+    {% include 'InamikaBackOfficeBundle:_partials:dropifyScripts.html.twig' %}
+	<script>
+        var levels=[];
+        function renderLevels(){
+            var html='';
+            for(var i=0; i<levels.length; i++){
+                fileAttr=``;
+                if(levels.map.length>0) 
+                    fileAttr=`data-default-file="${levels[i].map}"`;
+                html+=` 
+                    <input type="hidden" name="id[${i}]" value="${levels[i].id}">
+                    <input type="hidden" name="map[${i}]Base64" value="">
+                    <input type="hidden" name="map[${i}]Remove" value="">
+                    <div class="card form-material">
+                        <div class="card-header" >
+                            <span class="cursor-pointer" data-toggle="collapse" data-target="#collapseLevel${i}" aria-expanded="false" aria-controls="collapseLevel${i}" ><b>Nivel: ${i}</b></span>
+                            <div class="pull-right">
+                                <button data-toggle="tooltip" data-placement="top" title="Bloques" type="button" onclick="goToBlocks('${levels[i].id}')" class="btn-remove-level btn btn-outline-info btn-circle"><i class="fa fa-cubes"></i></button>
+                                <button data-toggle="tooltip" data-placement="top" title="Eliminar" type="button" onclick="removeLevel(${i})" class="btn-remove-level btn btn-outline-danger btn-circle"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body bg-light collapse" id="collapseLevel${i}">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label required" for="name">{{ 'NAME' | trans }}</label>
+                                        <input type="text" name="name[${i}]" required="required" class="form-control" value="${levels[i].name}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label required" for="name">{{ 'DESCRIPTION' | trans }}</label>
+                                        <textarea name="description[${i}]" class="form-control" placeholder="" rows="5">${levels[i].description}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label required" for="name">{{ 'MAP' | trans }}</label>
+                                    <input type="file" ${fileAttr} name="map[${i}]" onchange='encodeImageFileAsURL(this)' class='dropify' data-height='230' data-max-file-size='4M' data-allowed-file-extensions='png jpg jpeg gif'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+            $("#levels-container").html(html);
+            $('.dropify').dropify({
+                messages: {
+                    'default': '{{ 'DRAG_AND_DROP_FILE' | trans }}',
+                    'replace': '{{ 'DRAG_AND_DROP_OR_REPLACE' | trans }}',
+                    'remove':  '{{ 'DELETE' | trans }}',
+                    'error':   '{{ 'ERROR' | trans }}'
+                },
+                error: {
+                    'fileSize': '{{ 'FILE_VERY_LONG' | trans }}',
+                    'imageFormat': '{{ 'FILE_format' | trans }}'
+                }
+            });
+            $('.dropify-clear').on("click",function (){
+                var $inputRemove=$("input[name='"+$(this).siblings("input").attr("name")+"Remove']");
+                if($inputRemove.length>0){
+                    $inputRemove.val("true");
+                }
+            });
+        }
+
+        function addLevel(){
+            levels.push({
+                id: '',
+                name:'',
+                description:'',
+                order:levels.length+1,
+                map:'',
+            });
+            renderLevels();
+        }
+        
+        function goToBlocks(level){
+            var url='{{ path('inamika_backoffice_projectsLevels_blocks',{ id : ":ENTITY_ID" }) }}';
+            location.href=url.replace(':ENTITY_ID', level);
+        }
+        
+        function removeLevel(index){
+            swal({   
+                title: "{{ 'WARNING' | trans }}",   
+                text: "{{ 'ARE_YOU_SURE_DELETE_THIS_LEVEL' | trans }}",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "{{ 'YES_DELETE' | trans }}",   
+                cancelButtonText: "{{ 'NO' | trans }}",   
+                closeOnConfirm: true 
+            }, function(){
+                levels.splice(index, 1);
+                renderLevels();
+            });
+        }
+        
+        
+        function beforeSuccess(){
+            $.toast({
+                heading: '{{ 'RESULT_OK' | trans }}',
+                text: '{{'THE_DATA_WAS_UPDATED_CORRECTLY' | trans }}',
+                position: 'top-right',
+                icon: 'success',
+                hideAfter: 2000, 
+                stack: 6
+            });
+        }
+
+        function save(){
+            
+            var data=[];
+            for(var i=0; i<levels.length; i++){
+                if($("input[name='name["+i+"]']").val() == ''){
+                    $.toast({
+                        heading: '{{ 'ERROR' | trans }}',
+                        text: '{{ 'SOME_FIELDS_ARE_INCOMPLETE_PLEASE_CHECK_THEM_TO_CONTINUE' | trans }}',
+                        position: 'top-right',
+                        icon: 'error',
+                        hideAfter: 5000, 
+                        stack: 6
+                    });
+                    return;
+                }
+                data.push({
+                    id: $("input[name='id["+i+"]']").val(),
+                    name:$("input[name='name["+i+"]']").val(),
+                    description:$("textarea[name='description["+i+"]']").val(),
+                    mapBase64:$("input[name='map["+i+"]Base64']").val(),
+                    mapRemove:$("input[name='map["+i+"]Remove']").val(),
+                });
+            }
+            loading.show('{{ 'loading' | trans }}');
+            $.ajax({
+                url: '{{ path('api_projects_levels',{ id : entity.id }) }}',
+                type: 'POST',
+                data:JSON.stringify(data),
+                crossDomain: true,
+                success: function(data) {
+                    beforeSuccess(data);
+                },  
+                complete:function(){
+                    loading.hide();
+                },
+                error: function(data, status, error) {
+                    loading.hide();
+                    $.toast({
+                        heading: '{{ 'ERROR' | trans }}',
+                        text: '{{ 'ERROR_GENERAL' | trans }}',
+                        position: 'top-right',
+                        icon: 'error',
+                        hideAfter: 3000, 
+                        stack: 6
+                    });
+                }
+            });
+        }
+
+		$(function () {
+            
+            {% for level in entity.levels %}
+                var mapUrl='';
+                {% if level.map %}
+                     mapUrl='{{ web_image('uploads/or/' ~ level.map).resize('','300') }}';
+                {% endif %}
+                levels.push({
+                    id: '{{ level.id }}',
+                    name:'{{ level.name }}',
+                    description:'{{ level.description }}',
+                    order:levels.length+1,
+                    map:mapUrl,
+                });
+                renderLevels();
+            {% endfor %}
+        });
+	</script>
+{% endblock javascripts %}

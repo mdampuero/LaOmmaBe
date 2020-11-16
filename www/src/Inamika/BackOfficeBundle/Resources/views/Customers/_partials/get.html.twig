@@ -1,0 +1,78 @@
+<div class="row">
+	<div class="col-md-6 col-lg-4">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'NAME_COMPLETE' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.name }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-4">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'DOCUMENT' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.document }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-4">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'EMAIL' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.email }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-4">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'PHONE' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.phone }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-4">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'IS_CUSTOMER' | trans }}</h4>
+			<h5 class="card-subtitle">
+			{% if entity.isCustomer %}
+			<span class="badge badge-pill badge-success">{{ 'YES' | trans }}</span>
+			{% else %}
+			<span class="badge badge-pill badge-danger">{{ 'NO' | trans }}</span>
+			{% endif %}
+			</h5>
+		</div>
+	</div>
+	<div class="col-lg-12">
+		<h4 class="card-title">{{ 'DESCRIPTION' | trans }}</h4>
+		<p class="card-subtitle">{{ entity.description | nl2br | default('N/E') | raw }}</p>
+	</div>
+</div>
+{% if entity.units | length > 0 %}
+	<h4 class="card-title m-t-20">{{ 'UNITS' | trans }}</h4>
+	<hr>
+	<div class="table-responsive">
+		<table class="display nowrap table table-striped" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>{{ 'PROJECT' | trans }}</td>
+					<th>{{ 'LOTE_NUMBER' | trans }}</td>
+					<th>{{ 'LOTE_CODE' | trans }}</td>
+					<th>{{ 'TYPE' | trans }}</td>
+					<th class="text-center">{{ 'STATUS' | trans }}</td>
+					<th class="text-center">{{ 'ACTIVE' | trans }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for unit in entity.units %}
+				<tr>
+					<td>{{ unit.project.name}}</td>
+					<td>{{ unit.name}}</td>
+					<td>{{ unit.code}}</td>
+					<td>{{ unit.type.name}}</td>
+					<td class="text-center"><span class="badge badge-pill text-white" style="background-color:{{ unit.status.color }}">{{ unit.status.name }}</span></td>
+					<td class="text-center">
+						{% if unit.isActive %}
+							<span class="badge badge-pill badge-success">{{ 'YES' | trans }}</span>
+						{% else %}
+							<span class="badge badge-pill badge-danger">{{ 'NO' | trans }}</span>
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endif %}

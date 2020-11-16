@@ -1,0 +1,49 @@
+inamika_backoffice_unitsStatus:
+    path:     /
+    defaults: 
+        _controller: InamikaBackOfficeBundle:UnitsStatus:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Estados de unidades
+            parent_route: inamika_backoffice_homepage
+            
+inamika_backoffice_unitsStatus_add:
+    path:     /new
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsStatus:add }
+    options:
+        breadcrumb:
+            label: Agregar estado
+            parent_route: inamika_backoffice_unitsStatus
+    methods: [GET]
+
+inamika_backoffice_unitsStatus_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsStatus:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Estado
+            parent_route: inamika_backoffice_unitsStatus
+inamika_backoffice_unitsStatus_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsStatus:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Estado
+            parent_route: inamika_backoffice_unitsStatus
+
+inamika_backoffice_unitsStatus_edit:
+    path:     /edit/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsStatus:edit }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Editar estado
+            parent_route: inamika_backoffice_unitsStatus
+
+inamika_backoffice_unitsStatus_delete:
+    path:     /delete/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsStatus:delete }
+    methods: [POST,DELETE]

@@ -1,0 +1,26 @@
+api_users:
+    resource: "@InamikaApiBundle/Resources/config/users.yml"
+
+api_settings:
+    resource: "@InamikaApiBundle/Resources/config/settings.yml"
+
+api_demos:
+    resource: "@InamikaApiBundle/Resources/config/demos.yml"
+
+api_projects:
+    resource: "@InamikaApiBundle/Resources/config/projects.yml"
+
+api_unitsStatus:
+    resource: "@InamikaApiBundle/Resources/config/unitsStatus.yml"
+
+api_unitsTypes:
+    resource: "@InamikaApiBundle/Resources/config/unitsTypes.yml"
+
+api_units:
+    resource: "@InamikaApiBundle/Resources/config/units.yml"
+
+api_customers:
+    resource: "@InamikaApiBundle/Resources/config/customers.yml"
+
+api_logs:
+    resource: "@InamikaApiBundle/Resources/config/logs.yml"

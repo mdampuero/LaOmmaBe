@@ -1,0 +1,14 @@
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="{{ path('inamika_backoffice_homepage') }}">Admin</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a href="{{ path('inamika_backoffice_projects') }}">{{ 'PROJECTS' | trans}}</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a href="{{ path('inamika_backoffice_projects_landing',{ 'id': entity.id }) }}">{{ entity.name }}</a>
+	</li>
+	<li class="breadcrumb-item active">
+		{{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}
+	</li>
+</ol>

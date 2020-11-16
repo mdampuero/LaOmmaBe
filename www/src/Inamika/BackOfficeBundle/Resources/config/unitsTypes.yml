@@ -1,0 +1,35 @@
+inamika_backoffice_unitsTypes:
+    path:     /
+    defaults: 
+        _controller: InamikaBackOfficeBundle:UnitsTypes:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Tipos de unidades
+            parent_route: inamika_backoffice_homepage
+
+inamika_backoffice_unitsTypes_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsTypes:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Tipo de unidad
+            parent_route: inamika_backoffice_unitsTypes
+inamika_backoffice_unitsTypes_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsTypes:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Tipo de unidad
+            parent_route: inamika_backoffice_unitsTypes
+
+inamika_backoffice_unitsTypes_edit:
+    path:     /edit/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:UnitsTypes:edit }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Editar tipo
+            parent_route: inamika_backoffice_unitsTypes

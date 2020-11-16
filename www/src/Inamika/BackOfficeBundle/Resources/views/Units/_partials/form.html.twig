@@ -1,0 +1,153 @@
+{{ form_start(form, {'attr': {'class': 'form-material sendToApi','novalidate':'novalidate'} }) }}
+<div class="form-body">
+	<h3 class="card-title cursor-pointer" data-toggle="collapse" data-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">{{ 'GENERAL_DATA' | trans }}</h3>
+	<hr>
+	<div class="collapse show" id="collapseGeneral">
+		<div class="row p-t-20">
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.project)}}
+					{{form_widget(form.project)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.code)}}
+					{{form_widget(form.code)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.name)}}
+					{{form_widget(form.name)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.type)}}
+					{{form_widget(form.type)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.status)}}
+					{{form_widget(form.status)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.customer)}}
+					{{form_widget(form.customer)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.isActive)}}
+					{{form_widget(form.isActive)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.isOpportunity)}}
+					{{form_widget(form.isOpportunity)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.catchment)}}
+					{{form_widget(form.catchment)}}
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					{{form_label(form.description)}}
+					{{form_widget(form.description)}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="form-body">
+	<h3 class="card-title cursor-pointer" data-toggle="collapse" data-target="#collapsePrice" aria-expanded="false" aria-controls="collapsePrice">{{ 'PRICE' | trans }}</h3>
+	<hr>
+	<div class="collapse" id="collapsePrice">
+		<div class="row p-t-20">
+			<div class="col-md-6 col-lg-3">
+				<div class="form-group">
+					{{form_label(form.currencyPrice)}}
+					{{form_widget(form.currencyPrice)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="form-group">
+					{{form_label(form.price)}}
+					{{form_widget(form.price)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="form-group">
+					{{form_label(form.currencyExpenses)}}
+					{{form_widget(form.currencyExpenses)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="form-group">
+					{{form_label(form.expenses)}}
+					{{form_widget(form.expenses)}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="form-body">
+	<h3 class="card-title cursor-pointer" data-toggle="collapse" data-target="#collapseArea" aria-expanded="false" aria-controls="collapseArea">{{ 'AREA_ORIENTATION' | trans }}</h3>
+	<hr>
+	<div class="collapse" id="collapseArea">
+		<div class="row p-t-20">
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.areaGround)}}
+					{{form_widget(form.areaGround)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.areaCovered)}}
+					{{form_widget(form.areaCovered)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.areaSemiCovered)}}
+					{{form_widget(form.areaSemiCovered)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.rooms)}}
+					{{form_widget(form.rooms)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.orientation)}}
+					{{form_widget(form.orientation)}}
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="form-group">
+					{{form_label(form.floors)}}
+					{{form_widget(form.floors)}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% include 'InamikaBackOfficeBundle:_partials:files.html.twig' with { entity: entity} %}
+<div class="form-actions">
+	<button type="submit" class="btn btn-success">
+		<i class="fa fa-check"></i>
+		{{ 'SAVE' | trans }}</button>
+	<button type="button" class="btn btn-inverse" onclick="cancell()">{{ 'CANCEL' | trans }}</button>
+</div>
+{{ form_end(form) }}

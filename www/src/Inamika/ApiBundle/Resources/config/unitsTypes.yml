@@ -1,0 +1,24 @@
+api_unitsTypes:
+    path:     /unitsTypes
+    defaults: { _controller: InamikaApiBundle:UnitsTypes:index }
+    methods: [GET]
+
+api_unitsTypes_get:
+    path:     /unitsTypes/{id}
+    defaults: { _controller: InamikaApiBundle:UnitsTypes:get }
+    methods: [GET]
+
+api_unitsTypes_post:
+    path:     /unitsTypes
+    defaults: { _controller: InamikaApiBundle:UnitsTypes:post }
+    methods: [POST]
+
+api_unitsTypes_put:
+    path:     /unitsTypes/{id}
+    defaults: { _controller: InamikaApiBundle:UnitsTypes:put }
+    methods: [PUT]
+
+api_unitsTypes_delete:
+    path:     /unitsTypes/{id}
+    defaults: { _controller: InamikaApiBundle:UnitsTypes:delete }
+    methods: [DELETE]

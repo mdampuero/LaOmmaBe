@@ -1,0 +1,12 @@
+{% block stylesheet %}
+	<link href="{{ asset('bundles/inamikabackoffice/css/pages/user-card.css') }}" id="theme" rel="stylesheet">
+{% endblock %}
+{% set pathBase='inamika_backoffice_projects' %}
+{% set pathBaseApi='api_projects' %}
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block body %}
+	{{ parent()}}
+    <h3 class="card-title m-t-20">{{ 'GENERAL_DATA' | trans }}</h3>
+    <hr>
+    {% include 'InamikaBackOfficeBundle:UnitsStatus/_partials:get.html.twig' with { entity:entity } %}
+{% endblock body %}

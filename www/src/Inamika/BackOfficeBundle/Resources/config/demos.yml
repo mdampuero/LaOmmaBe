@@ -1,0 +1,59 @@
+inamika_backoffice_demos:
+    path:     /
+    defaults: 
+        _controller: InamikaBackOfficeBundle:Demos:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Demos
+            parent_route: inamika_backoffice_homepage
+            
+inamika_backoffice_demos_add:
+    path:     /new
+    defaults: { _controller: InamikaBackOfficeBundle:Demos:add }
+    options:
+        breadcrumb:
+            label: Agregar demo
+            parent_route: inamika_backoffice_demos
+    methods: [GET]
+
+inamika_backoffice_demos_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Demos:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Demo
+            parent_route: inamika_backoffice_demos
+
+inamika_backoffice_demos_import:
+    path:     /import
+    defaults: { _controller: InamikaBackOfficeBundle:Customers:import }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Importar demo
+            parent_route: inamika_backoffice_demos
+
+inamika_backoffice_demos_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Demos:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Demo
+            parent_route: inamika_backoffice_demos
+
+inamika_backoffice_demos_edit:
+    path:     /edit/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Demos:edit }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Editar demo
+            parent_route: inamika_backoffice_demos
+
+inamika_backoffice_demos_delete:
+    path:     /delete/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Demos:delete }
+    methods: [POST,DELETE]

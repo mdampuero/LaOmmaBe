@@ -1,0 +1,85 @@
+{% set pathBase='inamika_backoffice_unitsStatus' %}
+{% set pathBaseApi='api_unitsStatus' %}
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block body %} 
+{{ parent()}}
+<h3 class="card-title">
+    {% if app.request.attributes.get('_route_params')._breadcrumbs is defined %}
+        {{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}
+    {% endif %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-success btn-rounded " onclick="location.href='{{ path(pathBase~'_add')}}'"><i class="fa fa-plus"></i> {{ 'ADD' | trans }}</button>
+    </div>
+</h3>
+<div class="table-responsive">
+    <table id="{{ pathBase }}_dataTable" class="display nowrap table table-striped table-bordered" cellspacing="0" width="100%">
+    </table>
+</div>
+
+{{ form_start(formDelete, {'attr': {'id':id|default('formDelete')}}) }}
+{{ form_widget(formDelete) }}
+{{ form_end(formDelete) }}
+
+{% include 'InamikaBackOfficeBundle:_partials:modal.html.twig' with { pathBase:pathBase} %}
+
+{% endblock body %} 
+{% block javascripts %} 
+{{ parent() }}
+{% include 'InamikaBackOfficeBundle:_partials:dataTableScripts.html.twig' with { pathBase:pathBase,loadData:pathBaseApi } %}
+<script type="text/javascript">
+    $(function () {
+        $('#{{ pathBase }}_dataTable').DataTable({
+            order: [[ 1, 'desc' ]],
+            "processing": false,
+            "serverSide": true,
+            columns: [
+                { title:"Tipo",data: "projectType.name" },
+                { title:"{{ 'NAME' | trans }}",data: "name" },
+                { 
+                    data: 'color', 
+                    className: "text-center",
+                    title: '{{ 'COLOR' | trans }}',
+                    render: function (data, type, row) 
+                    {
+                        return `<i class="fa fa-tag fa-2x" style="color:${data}"></i>`;
+                    }
+                },
+                { 
+                    data: 'isDefault', 
+                    className: "text-center",
+                    title: '{{ 'IS_FILTER_DEFAULT' | trans }}',
+                    render: function (data, type, row) 
+                    {
+                        switch (data){
+                            case true:
+                                return '<span class="badge badge-pill badge-success">{{ 'YES' | trans }}</span>';
+                                break;
+                            default:
+                                return '<span class="badge badge-pill badge-danger">{{ 'NO' | trans }}</span>';
+                                break;
+                        }
+                    }
+                },
+                {
+                    data: null,
+                    orderable: false,
+                    className: "text-center",
+                    render: function (data, type, row) 
+                    {
+                        let buttons=[];
+                        let buttonsHtml='';
+                        buttons.push('<button data-toggle="tooltip" data-placement="top" title="Ver más" type="button" class="btn-view btn btn-outline-success btn-circle"><i class="fa fa-eye"></i></button> ');
+                        {% if is_granted('ROLE_ADMIN') %}
+                            buttons.push('<button data-toggle="tooltip" data-placement="top" title="Editar" type="button" class="btn-edit btn btn-outline-info btn-circle"><i class="fa fa-pencil"></i></button> ');
+                            buttons.push('<button data-toggle="tooltip" data-placement="top" title="Eliminar" type="button" class="btn-remove btn btn-outline-danger btn-circle"><i class="fa fa-trash"></i></button> ');
+                        {% endif %}
+                        for(var i=0; i<buttons.length; i++)
+                            buttonsHtml+=buttons[i];
+                        return buttonsHtml;
+                    }
+                }
+            ]
+        });
+    });
+</script>
+{% endblock %}

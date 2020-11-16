@@ -1,0 +1,93 @@
+inamika_backoffice_homepage:
+    path:     /
+    defaults:  
+        _controller: InamikaBackOfficeBundle:Dashboard:index
+    options:
+        breadcrumb:
+            label: Admin
+
+inamika_backoffice_change_lang:
+    path:     /changeLocale
+    defaults: { _controller: InamikaBackOfficeBundle:Dashboard:changeLocale }
+
+security_login:
+    path:     /login
+    defaults:  
+        _controller: InamikaBackOfficeBundle:Login:index
+        
+security_logout:
+    path:     /login/logout
+    defaults:  
+        _controller: InamikaBackOfficeBundle:Login:logout
+
+security_forgot:
+    path:     /login/forgot
+    defaults:  
+        _controller: InamikaBackOfficeBundle:Login:forgot
+        
+security_reset_password:
+    path:     /login/restablecer/{id}/{code}
+    defaults: 
+        _controller: InamikaBackOfficeBundle:Login:reset
+    methods: [GET,POST]
+
+inamika_backoffice_account:
+    path:     /mi_profile
+    defaults: 
+        _controller: InamikaBackOfficeBundle:Account:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: MY_PROFILE
+            parent_route: inamika_backoffice_homepage
+            
+inamika_backoffice_account_update:
+    path:     /MiCuenta/actualizar/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Account:update }
+    methods: [PUT]
+    options:
+        breadcrumb:
+            label: MY_PROFILE
+            parent_route: inamika_backoffice_homepage    
+
+inamika_backoffice_setting:
+    path:     /setting
+    defaults: { _controller: InamikaBackOfficeBundle:Settings:index }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: SETTING
+            parent_route: inamika_backoffice_homepage      
+
+inamika_backoffice_users:
+    resource: "@InamikaBackOfficeBundle/Resources/config/users.yml"
+    prefix:   /usuarios
+
+inamika_backoffice_demos:
+    resource: "@InamikaBackOfficeBundle/Resources/config/demos.yml"
+    prefix:   /demos
+
+inamika_backoffice_projects:
+    resource: "@InamikaBackOfficeBundle/Resources/config/projects.yml"
+    prefix:   /emprendimientos
+
+inamika_backoffice_projectsLevels_blocks:
+    resource: "@InamikaBackOfficeBundle/Resources/config/projectsLevels.yml"
+    prefix:   /niveles
+
+inamika_backoffice_unitsStatus:
+    resource: "@InamikaBackOfficeBundle/Resources/config/unitsStatus.yml"
+    prefix:   /estados
+
+inamika_backoffice_unitsTypes:
+    resource: "@InamikaBackOfficeBundle/Resources/config/unitsTypes.yml"
+    prefix:   /tipos
+
+inamika_backoffice_units:
+    resource: "@InamikaBackOfficeBundle/Resources/config/units.yml"
+    prefix:   /unidades
+
+inamika_backoffice_customers:
+    resource: "@InamikaBackOfficeBundle/Resources/config/customers.yml"
+    prefix:   /propietarios
+

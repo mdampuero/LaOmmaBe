@@ -1,0 +1,147 @@
+<div class="form-body">
+	<div class="row ">
+		<div class="col-sm-3">
+			<div class="card bg-info">
+				<div class="card-body">
+					<div class="d-flex no-block">
+						<div class="align-self-center">
+							<h6 class="text-white m-t-10 m-b-0">{{ 'PROJECT' | trans }}</h6>
+							<h2 class="m-t-0 text-white">{{ entity.project.name}}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card bg-warning">
+				<div class="card-body">
+					<div class="d-flex no-block">
+						<div class="align-self-center">
+							<h6 class="text-white m-t-10 m-b-0">{{ 'LOTE_CODE' | trans }}</h6>
+							<h2 class="m-t-0 text-white">{{ entity.code }}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card bg-primary">
+				<div class="card-body">
+					<div class="d-flex no-block">
+						<div class="align-self-center">
+							<h6 class="text-white m-t-10 m-b-0">{{ 'LOTE_NUMBER' | trans }}</h6>
+							<h2 class="m-t-0 text-white">{{ entity.name }}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card {% if entity.isActive %}bg-success{% else %}bg-danger{% endif %}">
+				<div class="card-body">
+					<div class="d-flex no-block">
+						<div class="align-self-center">
+							<h6 class="text-white m-t-10 m-b-0">{{ 'ACTIVE' | trans }}</h6>
+							<h2 class="m-t-0 text-white">
+								{% if entity.isActive %}
+									{{ 'YES' | trans }}
+								{% else %}
+									{{ 'NO' | trans }}
+								{% endif %}
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 col-lg-4">
+			<h4 class="card-title">{{ 'TYPE' | trans }}</h4>
+			<p class="card-subtitle">{{ entity.type.name | default('N/E') }}</p>
+		</div>
+		<div class="col-md-6 col-lg-4">
+			<h4 class="card-title">{{ 'OPPORTUNITY' | trans }}</h4>
+			<p class="card-subtitle">
+				{% if entity.isOpportunity %}
+					{{ 'YES' | trans }}
+				{% else %}
+					{{ 'NO' | trans }}
+				{% endif %}
+			</p>
+		</div>
+		<div class="col-md-6 col-lg-4">
+			<h4 class="card-title">{{ 'CATCHMENT' | trans }}</h4>
+			<p class="card-subtitle">{{ entity.catchment | default('N/E') }}</p>
+		</div>
+		<div class="col-lg-12">
+			<h4 class="card-title">{{ 'DESCRIPTION' | trans }}</h4>
+			<p class="card-subtitle">{{ entity.description | nl2br | default('N/E') | raw }}</p>
+		</div>
+	</div>
+	{% if entity.customer  %}
+		<h3 class="card-title m-t-20 cursor-pointer" data-toggle="collapse" data-target="#collapseCustomer" aria-expanded="false" aria-controls="collapseCustomer">{{ 'CUSTOMER' | trans }}</h3>
+		<hr>
+		<div class="collapse" id="collapseCustomer">
+			{% include 'InamikaBackOfficeBundle:Customers/_partials:get.html.twig' with { entity:entity.customer } %}
+		</div>
+	{% endif %}
+	{% if entity.status  %}
+		<h3 class="card-title m-t-20 cursor-pointer" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">{{ 'STATUS' | trans }}</h3>
+		<hr>
+		<div class="collapse" id="collapseStatus">
+		{% include 'InamikaBackOfficeBundle:UnitsStatus/_partials:get.html.twig' with { entity:entity.status } %}
+		</div>
+	{% endif %}
+	<h3 class="card-title cursor-pointer" data-toggle="collapse" data-target="#collapsePrice" aria-expanded="false" aria-controls="collapsePrice">{{ 'PRICE' | trans }}</h3>
+	<hr>
+	<div class="collapse" id="collapsePrice">
+		<div class="row">
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'PRICE' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.currencyPrice.code }} {{ entity.price | number_format(2, ',', '.') }}</p>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'EXPENSES' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.currencyExpenses.code }} {{ entity.expenses | number_format(2, ',', '.') }}</p>
+			</div>
+		</div>
+	</div>
+	<h3 class="card-title cursor-pointer" data-toggle="collapse" data-target="#collapseArea" aria-expanded="false" aria-controls="collapseArea">{{ 'AREA_ORIENTATION' | trans }}</h3>
+	<hr>
+	<div class="collapse" id="collapseArea">
+		<div class="row">
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'AREA_GROUND' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.areaGround | default('N/E') }}</p>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'AREA_COVERED' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.areaCovered | default('N/E') }}</p>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'AREA_SEMI_GROUND' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.areaSemiCovered | default('N/E') }}</p>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'ROOMS' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.rooms | default('N/E') }}</p>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'ORIENTATION' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.orientation | default('N/E') }}</p>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h4 class="card-title">{{ 'FLOORS' | trans }}</h4>
+				<p class="card-subtitle">{{ entity.floors | default('N/E') }}</p>
+			</div>
+		</div>
+	</div>
+	<h3 class="card-title cursor-pointer" data-toggle="collapse" data-target="#collapseMoreInfo" aria-expanded="false" aria-controls="collapseMoreInfo">{{ 'COMMENTS' | trans }}</h3>
+	<hr>
+	<div class="collapse" id="collapseMoreInfo">
+		{% include 'InamikaBackOfficeBundle:_partials:timeline.html.twig' %}
+	</div>
+	{% include 'InamikaBackOfficeBundle:_partials:gallery.html.twig' with { files:entity.gallery} %}
+</div>
+{% include 'InamikaBackOfficeBundle:_partials:timelineScripts.html.twig' with { endpoint: path('api_units_logs',{ id: entity.id }) } %}

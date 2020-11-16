@@ -1,0 +1,24 @@
+{% set pathBase='inamika_backoffice_units' %} 
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block body %} 
+{{ parent()}}   
+<div class="form-body">
+    <h3 class="card-title">Test API Tokko</h3>
+    <hr>
+    <div class="p-t-20">
+        {{ dump(data) }}
+    </div>
+</div>
+{% endblock body %}
+{% block javascripts %} 
+{{ parent() }}
+{% include 'InamikaBackOfficeBundle:_partials:dropifyScripts.html.twig' %}
+<script>
+    function beforeSuccess(){
+        location.href="{{ path(pathBase) }}";
+    }
+    function cancell(){
+        location.href='{{ path(pathBase) }}';
+    }
+</script>
+{% endblock javascripts %}

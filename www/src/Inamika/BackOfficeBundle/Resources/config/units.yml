@@ -1,0 +1,68 @@
+inamika_backoffice_units:
+    path:     /
+    defaults: 
+        _controller: InamikaBackOfficeBundle:Units:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Unidades
+            parent_route: inamika_backoffice_homepage
+            
+inamika_backoffice_units_add:
+    path:     /new
+    defaults: { _controller: InamikaBackOfficeBundle:Units:add }
+    options:
+        breadcrumb:
+            label: Agregar unidad
+            parent_route: inamika_backoffice_units
+    methods: [GET]
+
+inamika_backoffice_units_edit:
+    path:     /edit/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Units:edit }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Editar unidad
+            parent_route: inamika_backoffice_units
+
+inamika_backoffice_units_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Units:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Unidad
+            parent_route: inamika_backoffice_units
+
+inamika_backoffice_units_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Units:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Unidad
+            parent_route: inamika_backoffice_units
+
+inamika_backoffice_units_tokko:
+    path:     /tokko
+    defaults: { _controller: InamikaBackOfficeBundle:Units:tokko }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Traer unidades de Tokko
+            parent_route: inamika_backoffice_units
+
+inamika_backoffice_units_import:
+    path:     /import
+    defaults: { _controller: InamikaBackOfficeBundle:Units:import }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Importar unidades
+            parent_route: inamika_backoffice_units
+
+inamika_backoffice_units_delete:
+    path:     /delete/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Units:delete }
+    methods: [POST,DELETE]

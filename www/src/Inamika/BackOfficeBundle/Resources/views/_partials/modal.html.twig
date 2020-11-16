@@ -1,0 +1,35 @@
+<div id="{{ pathBase }}_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var modalLanding_{{ pathBase }}={
+    show: function (title,id){
+        $('#{{ pathBase }}_modal .modal-title').html(title);
+        $('#{{ pathBase }}_modal .modal-body').html(getSpin());
+        $('#{{ pathBase }}_modal').modal('show');
+        var url='{{ path(pathBase~'_get',{ id: ':ENTITY_ID' })}}';
+        $.ajax({
+            url: url.replace(':ENTITY_ID',id),
+            type: 'GET',
+            crossDomain: true,
+            success: function(data) {
+                $('#{{ pathBase }}_modal .modal-body').html(data);  
+            }
+        });   
+        return true;
+    },
+    hide: function (){
+        return true;
+    }
+}
+</script>

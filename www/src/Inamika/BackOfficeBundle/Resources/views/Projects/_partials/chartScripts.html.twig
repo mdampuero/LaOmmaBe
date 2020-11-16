@@ -1,0 +1,77 @@
+<script>
+		$(function () {
+            $.ajax({
+                url: "{{ path('api_projects_units_total',{ id : entity.id })}}",
+                type: 'GET',
+                crossDomain: true,
+                success: function(data) {
+                    if(data.length>0){
+                        $("#spin-chartPie").fadeOut('fast');
+                        $("#spin-chartBar").fadeOut('fast');
+                        var ctx3 = document.getElementById("chartPie").getContext("2d");
+                        var myPieChart = new Chart(ctx3).Pie(data, {
+                            segmentShowStroke: true,
+                            segmentStrokeColor: "#fff",
+                            segmentStrokeWidth: 0,
+                            animationSteps: 100,
+                            tooltipCornerRadius: 10,
+                            animationEasing: "easeOutBounce",
+                            animateRotate: true,
+                            animateScale: false,
+                            responsive: true,
+                            showAllTooltips: true
+                        });
+
+                        var ctx2 = document.getElementById("chartBar").getContext("2d");
+                        labels=[];
+                        values=[];
+                        colors=[];
+                        for(var i=0; i<data.length; i++){
+                            labels.push(data[i].label);
+                            values.push(data[i].value);
+                            colors.push(data[i].color);
+                        }
+                        var data2 = {
+                            labels: labels,
+                            datasets: [{
+                                    label: "Bar",
+                                    fillColor: "#009efb",
+                                    strokeColor: "#000000",
+                                    data: values
+                                }
+                            ]
+                        };
+
+                        var chartBar = new Chart(ctx2).Bar(data2, {
+                            scaleBeginAtZero: true,
+                            scaleShowGridLines: true,
+                            scaleGridLineColor: "rgba(0,0,0,.005)",
+                            scaleGridLineWidth: 0,
+                            scaleShowHorizontalLines: true,
+                            scaleShowVerticalLines: true,
+                            barShowStroke: true,
+                            barStrokeWidth: 0,
+                            tooltipCornerRadius: 2,
+                            barDatasetSpacing: 3,
+                            responsive: true
+                        });
+                        for(var i=0; i<colors.length; i++){
+                            chartBar.datasets[0].bars[i].fillColor=colors[i];
+                        }
+                        chartBar.update();
+                    }else{
+                         $("#chartPie").hide();
+                         $("#spin-chartPie").html('<p class="m-t-40">No hay datos suficientes para mostrar</p>');
+                         $("#chartBar").hide();
+                         $("#spin-chartBar").html('<p class="m-t-40">No hay datos suficientes para mostrar</p>');
+                    }
+                },  
+                complete:function(){
+                    
+                },
+                error: function(data, status, error) {
+                    
+                }
+            });   
+        });
+	</script>

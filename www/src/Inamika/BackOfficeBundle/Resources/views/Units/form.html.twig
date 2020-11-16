@@ -1,0 +1,22 @@
+{% set pathBase='inamika_backoffice_units' %} 
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block stylesheet %} 
+{{ parent() }}
+{% endblock stylesheet %}
+{% block body %} 
+{{ parent()}}   
+{{ render(controller('Inamika\\BackOfficeBundle\\Controller\\UnitsController::form',{ entity: entity})) }}  
+{% endblock body %}
+{% block javascripts %} 
+{{ parent() }}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('bundles/inamikabackoffice/js/combobox.js') }}"></script>
+<script>
+    function beforeSuccess(){
+        location.href="{{ path(pathBase) }}";
+    }
+    function cancell(){
+        location.href='{{ path(pathBase) }}';
+    }
+</script>
+{% endblock javascripts %}

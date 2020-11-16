@@ -1,0 +1,8 @@
+
+inamika_backoffice_projectsLevels_blocks:
+    path:     /blocks/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:ProjectsLevels:blocks }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Bloques

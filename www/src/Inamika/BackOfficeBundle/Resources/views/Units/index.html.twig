@@ -1,0 +1,101 @@
+{% set pathBase='inamika_backoffice_units' %}
+{% set pathBaseApi='api_units' %}
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block body %} 
+{{ parent()}}
+<h3 class="card-title">
+    {% if app.request.attributes.get('_route_params')._breadcrumbs is defined %}
+        {{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-success btn-rounded " onclick="location.href='{{ path(pathBase~'_add')}}'"><i class="fa fa-plus"></i> {{ 'ADD' | trans }}</button>
+        <button type="button" class="btn btn-info btn-rounded " onclick="location.href='{{ path(pathBase~'_import')}}'"><i class="fa fa-upload"></i> {{ 'IMPORT' | trans }}</button>
+        <button type="button" class="btn btn-primary btn-rounded " onclick="location.href='{{ path('api_units_export')}}'"><i class="fa fa-download"></i> {{ 'EXPORT' | trans }}</button>
+        {# <button type="button" class="btn btn-primary btn-rounded " onclick="location.href='{{ path(pathBase~'_tokko')}}'"><i class="fa fa-magnet"></i> {{ 'GET_TOKKO' | trans }}</button> #}
+    </div>
+    {% endif %}
+</h3>
+<div class="table-responsive">
+    <table id="{{ pathBase }}_dataTable" class="display nowrap table table-striped table-bordered" cellspacing="0" width="100%">
+    </table>
+</div>
+
+{{ form_start(formDelete, {'attr': {'id':id|default('formDelete')}}) }}
+{{ form_widget(formDelete) }}
+{{ form_end(formDelete) }}
+
+{% include 'InamikaBackOfficeBundle:_partials:modal.html.twig' with { pathBase:pathBase} %}
+
+{% endblock body %} 
+{% block javascripts %} 
+{{ parent() }}
+{% include 'InamikaBackOfficeBundle:_partials:dataTableScripts.html.twig' with { pathBase:pathBase,loadData:pathBaseApi } %}
+<script type="text/javascript">
+    
+    $(function () {
+        $('#{{ pathBase }}_dataTable').DataTable({
+            order: [[ 1, 'desc' ]],
+            "processing": false,
+            "serverSide": true,
+            columns: [
+                { title:"{{ 'PROJECT' | trans }}",data: "project.name" },
+                { title:"{{ 'LOTE_NUMBER' | trans }}",data: "name" },
+                { title:"{{ 'LOTE_CODE' | trans }}",data: "code" },
+                { title:"{{ 'TYPE' | trans }}",data: "type.name" },
+                { 
+                    data: 'customer',
+                    title: '{{ 'CUSTOMER' | trans }}',
+                    render: function (data, type, row) 
+                    {
+                        if(data) return data.name; else return '';       
+                    }
+                },
+                { 
+                    data: 'status.id', 
+                    className: "text-center",
+                    title: '{{ 'STATUS' | trans }}',
+                    render: function (data, type, row) 
+                    {
+                        return `<span class="badge badge-pill text-white" style="background-color:${row.status.color}">${row.status.name}</span>`;       
+                    }
+                },
+                { 
+                    data: 'isActive', 
+                    className: "text-center",
+                    title: '{{ 'ACTIVE' | trans }}',
+                    render: function (data, type, row) 
+                    {
+                        switch (data){
+                            case true:
+                                return '<span class="badge badge-pill badge-success">{{ 'YES' | trans }}</span>';
+                                break;
+                            default:
+                                return '<span class="badge badge-pill badge-danger">{{ 'NO' | trans }}</span>';
+                                break;
+                        }
+                    }
+                },
+                {
+                    data: null,
+                    orderable: false,
+                    className: "text-center",
+                    render: function (data, type, row) 
+                    {
+                        let buttons=[];
+                        let buttonsHtml='';
+                        buttons.push('<button data-toggle="tooltip" data-placement="top" title="Ver más" type="button" class="btn-view btn btn-outline-success btn-circle"><i class="fa fa-eye"></i></button> ');
+                        {% if is_granted('ROLE_ADMIN') %}
+                            buttons.push('<button data-toggle="tooltip" data-placement="top" title="Editar" type="button" class="btn-edit btn btn-outline-info btn-circle"><i class="fa fa-pencil"></i></button> ');
+                            buttons.push('<button data-toggle="tooltip" data-placement="top" title="Eliminar" type="button" class="btn-remove btn btn-outline-danger btn-circle"><i class="fa fa-trash"></i></button> ');
+                        {% endif %}
+                        for(var i=0; i<buttons.length; i++)
+                            buttonsHtml+=buttons[i];
+                        return buttonsHtml;
+                    }
+                }
+            ]
+        });
+    });
+</script>
+{% endblock %}

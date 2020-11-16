@@ -1,0 +1,21 @@
+{% set pathBase='inamika_backoffice_unitsTypes' %} 
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block body %} 
+{{ parent()}}     
+{{ render(controller('Inamika\\BackOfficeBundle\\Controller\\UnitsTypesController::form',{ entity: entity})) }}
+{% endblock body %}
+{% block javascripts %} 
+{{ parent() }}
+<script src="{{ asset('bundles/inamikabackoffice/plugins/jscolor-2.3.3/jscolor.js') }}"></script>
+<script>
+    $(function (){
+        //$('.colorPicker').minicolors();
+    });
+    function beforeSuccess(){
+        location.href="{{ path(pathBase) }}";
+    }
+    function cancell(){
+        location.href='{{ path(pathBase) }}';
+    }
+</script>
+{% endblock javascripts %}

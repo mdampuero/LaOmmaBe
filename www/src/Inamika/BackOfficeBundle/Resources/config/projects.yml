@@ -1,0 +1,68 @@
+inamika_backoffice_projects:
+    path:     /
+    defaults: 
+        _controller: InamikaBackOfficeBundle:Projects:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Emprendimientos
+            parent_route: inamika_backoffice_homepage
+            
+inamika_backoffice_projects_add:
+    path:     /new
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:add }
+    options:
+        breadcrumb:
+            label: Agregar emprendimiento
+            parent_route: inamika_backoffice_projects
+    methods: [GET]
+
+inamika_backoffice_projects_edit:
+    path:     /edit/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:edit }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Editar emprendimiento
+            parent_route: inamika_backoffice_projects
+
+inamika_backoffice_projects_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Landing
+            parent_route: inamika_backoffice_projects
+
+inamika_backoffice_projects_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Landing
+            parent_route: inamika_backoffice_projects
+
+inamika_backoffice_projects_modules:
+    path:     /modulos/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:modules }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Administrar Módulos
+            parent_route: inamika_backoffice_projects
+
+inamika_backoffice_projects_map:
+    path:     /map/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:map }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Ubicar unidades
+            parent_route: inamika_backoffice_projects
+
+inamika_backoffice_projects_delete:
+    path:     /delete/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Projects:delete }
+    methods: [POST,DELETE]

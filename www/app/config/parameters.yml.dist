@@ -1,0 +1,17 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: urdapilleta
+    database_user: root
+    database_password: Secreta007
+    mailer_transport: smtp
+    mailer_host: ''
+    mailer_port: 465
+    mailer_encryption: ssl
+    mailer_user: ''
+    mailer_password: ''
+    secret: 99b2af404f070f6d849dea5705fd9375b130a628

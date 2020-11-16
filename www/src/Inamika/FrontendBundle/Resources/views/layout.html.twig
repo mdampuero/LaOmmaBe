@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{{ setting.getData.title }} {% if app.request.attributes.get('_route_params')._breadcrumbs is defined %} - {{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}{% endif %}
+    {% endblock %}</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <link href="{{ asset('bundles/inamikafrontend/') }}img/favicon.png" rel="icon">
+  <link href="{{ asset('bundles/inamikafrontend/') }}img/apple-touch-icon.png" rel="apple-touch-icon">
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+    {{ include('InamikaFrontendBundle::footer.html.twig') }}
+    {% block javascripts %}
+	<!-- JavaScript Libraries -->
+	<script>
+    </script>
+    {% endblock %}
+    </body>
+</html>

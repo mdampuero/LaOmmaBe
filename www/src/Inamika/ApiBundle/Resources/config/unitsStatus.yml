@@ -1,0 +1,24 @@
+api_unitsStatus:
+    path:     /unitsStatus
+    defaults: { _controller: InamikaApiBundle:UnitsStatus:index }
+    methods: [GET]
+
+api_unitsStatus_get:
+    path:     /unitsStatus/{id}
+    defaults: { _controller: InamikaApiBundle:UnitsStatus:get }
+    methods: [GET]
+
+api_unitsStatus_post:
+    path:     /unitsStatus
+    defaults: { _controller: InamikaApiBundle:UnitsStatus:post }
+    methods: [POST]
+
+api_unitsStatus_put:
+    path:     /unitsStatus/{id}
+    defaults: { _controller: InamikaApiBundle:UnitsStatus:put }
+    methods: [PUT]
+
+api_unitsStatus_delete:
+    path:     /unitsStatus/{id}
+    defaults: { _controller: InamikaApiBundle:UnitsStatus:delete }
+    methods: [DELETE]

@@ -1,0 +1,24 @@
+<div class="text-right ">
+    <div class="btn-group m-b-20 ">
+        <a href="{{ path('inamika_backoffice_projects') }}" role="button" data-toggle="tooltip" data-placement="top" title="Volver" type="button" class="btn-view btn btn-outline-success btn-circle">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        {% if is_granted('ROLE_ADMIN') %}
+		{% if entity.projectType.id == constant('Inamika\\BackEndBundle\\Entity\\ProjectType::NEIGHBORHOOD') %}
+			<a href="{{ path('inamika_backoffice_projects_map', { id: entity.id}) }}" role="button" data-toggle="tooltip" data-placement="top" title="Ubicar unidades" type="button" class="btn-level btn btn-outline-warning btn-circle">
+				<i class="fa fa-map-marker"></i>
+			</a>
+		{% elseif entity.projectType.id == constant('Inamika\\BackEndBundle\\Entity\\ProjectType::CONDOMINIUM')%}
+			<a href="{{ path('inamika_backoffice_projects_modules', { id: entity.id}) }}" role="button" data-toggle="tooltip" data-placement="top" title="Administrar módulos" type="button" class="btn-level btn btn-outline-primary btn-circle">
+				<i class="fa fa-cubes"></i>
+			</a>
+		{% endif %}
+        <a href="{{ path('inamika_backoffice_projects_edit', { id: entity.id}) }}" role="button" data-toggle="tooltip" data-placement="top" title="Editar" type="button" class="btn-edit btn btn-outline-info btn-circle">
+            <i class="fa fa-pencil"></i>
+        </a>
+        <a href="javascript:void(0);" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar" type="button" class="btn-remove btn btn-outline-danger btn-circle">
+            <i class="fa fa-trash"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
