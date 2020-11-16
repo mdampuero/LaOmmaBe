@@ -25,7 +25,7 @@ $ docker exec -ti service_apache php bin/console doctrine:fixtures:load
 Este ultimo comando agrega un usuario 'Superuser' en al base para ingresar al BackOffice 
 * Email: admin@email.com
 * Password: 123456 
-* Link: [BackOffice](http://urdapilleta.com/app_dev.php/admin)
+* Link: [BackOffice](http://laomma.local/app_dev.php/admin)
 
 ### Comandos utiles de symfony ###
 
@@ -33,7 +33,7 @@ Este ultimo comando agrega un usuario 'Superuser' en al base para ingresar al Ba
 * Crear entidades: $ bin/console doctrine:generate:entity
 * Instalar assets: $ bin/console assets:install
 
-### Comandos para inrgesar a la terminal de un container ###
+### Comandos para ingresar a la terminal de un container ###
 
 * Apache: docker exec -ti service_apache bash
 * Mysql: docker exec -ti service_mysql bash
