@@ -19,4 +19,12 @@ class CurrencyRepository extends \Doctrine\ORM\EntityRepository
         ->setParameter('name',$parameters['name'])
         ->setMaxResults(1)->getQuery()->getResult();
     }
+    
+    public function getAll(){
+        return $this->createQueryBuilder('e')
+        ->select('e')
+        ->where('e.isDelete = :isDelete')
+        ->setParameter('isDelete',false)
+        ->orderBy("e.id","DESC");
+    }
 }

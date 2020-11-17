@@ -22,9 +22,11 @@ services:
             tags: ['doctrine.fixture.orm']
     Inamika\BackEndBundle\DataFixtures\ORM\DemosFixture:
             tags: ['doctrine.fixture.orm']
-    Inamika\BackEndBundle\DataFixtures\ORM\MenusFixture:
+    Inamika\BackEndBundle\DataFixtures\ORM\ProductsFixture:
             tags: ['doctrine.fixture.orm']
     Inamika\BackEndBundle\DataFixtures\ORM\CurrenciesFixture:
+            tags: ['doctrine.fixture.orm']
+    Inamika\BackEndBundle\DataFixtures\ORM\OrdersStatusFixture:
             tags: ['doctrine.fixture.orm']
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services

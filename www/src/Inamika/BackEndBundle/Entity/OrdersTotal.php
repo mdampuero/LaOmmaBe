@@ -60,7 +60,7 @@ class OrdersTotal
      *
      * @ORM\Column(name="vat", type="float")
      */
-    private $vat;
+    private $vat=0;
 
     /**
      * @var \DateTime

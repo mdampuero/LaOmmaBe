@@ -10,11 +10,11 @@ namespace Inamika\ApiBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Inamika\BackEndBundle\Entity\Menu;
+use Inamika\BackEndBundle\Entity\Product;
 use Inamika\BackEndBundle\Entity\Currency;
-use Inamika\BackEndBundle\Form\Menu\MenuType;
+use Inamika\BackEndBundle\Form\Product\ProductType;
 
-class MenusController extends BaseController
+class ProductsController extends BaseController
 {   
     public function indexAction(Request $request){
         $search = $request->query->get('search', array());
@@ -24,23 +24,23 @@ class MenusController extends BaseController
         $sort = $request->query->get('sort', null);
         $direction = $request->query->get('direction', null);
         return $this->handleView($this->view(array(
-            'data' => $this->getDoctrine()->getRepository(Menu::class)->search($query, $limit, $offset, $sort, $direction)->getQuery()->getResult(),
-            'recordsTotal' => $this->getDoctrine()->getRepository(Menu::class)->total(),
-            'recordsFiltered' => $this->getDoctrine()->getRepository(Menu::class)->searchTotal($query, $limit, $offset),
+            'data' => $this->getDoctrine()->getRepository(Product::class)->search($query, $limit, $offset, $sort, $direction)->getQuery()->getResult(),
+            'recordsTotal' => $this->getDoctrine()->getRepository(Product::class)->total(),
+            'recordsFiltered' => $this->getDoctrine()->getRepository(Product::class)->searchTotal($query, $limit, $offset),
             'offset' => $offset,
             'limit' => $limit,
         )));
     }
     
     public function getAction($id){
-        if(!$entity=$this->getDoctrine()->getRepository(Menu::class)->find($id))
+        if(!$entity=$this->getDoctrine()->getRepository(Product::class)->find($id))
             return $this->handleView($this->view(null, Response::HTTP_NOT_FOUND));
         return $this->handleView($this->view($entity));
     }
 
     public function postAction(Request $request){
-        $entity = new Menu();
-        $form = $this->createForm(MenuType::class, $entity);
+        $entity = new Product();
+        $form = $this->createForm(ProductType::class, $entity);
         $form->submit(json_decode($request->getContent(), true));
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -60,7 +60,7 @@ class MenusController extends BaseController
             $path='uploads/or/';
             $file=$this->get('Base64Service')->convertToFile($content["file"]["base64"],$path);
             try {
-                $this->getDoctrine()->getRepository(Menu::class)->import($path.$file);
+                $this->getDoctrine()->getRepository(Product::class)->import($path.$file);
                 return $this->handleView($this->view("", Response::HTTP_OK));
             } catch (\Throwable $th) {
                 return $this->handleView($this->view($th->getMessage(), Response::HTTP_BAD_REQUEST));
@@ -71,9 +71,9 @@ class MenusController extends BaseController
     }
     
     public function putAction(Request $request,$id){
-        if(!$entity=$this->getDoctrine()->getRepository(Menu::class)->find($id))
+        if(!$entity=$this->getDoctrine()->getRepository(Product::class)->find($id))
             return $this->handleView($this->view(null, Response::HTTP_NOT_FOUND));
-        $form = $this->createForm(MenuType::class, $entity);
+        $form = $this->createForm(ProductType::class, $entity);
         $form->submit(json_decode($request->getContent(), true));
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -85,7 +85,7 @@ class MenusController extends BaseController
     }
 
     public function deleteAction(Request $request,$id){
-        if(!$entity=$this->getDoctrine()->getRepository(Menu::class)->find($id))
+        if(!$entity=$this->getDoctrine()->getRepository(Product::class)->find($id))
             return $this->handleView($this->view(null, Response::HTTP_NOT_FOUND));
         $form = $this->createFormBuilder(null, array('csrf_protection' => false))->setMethod('DELETE')->getForm();
         $form->submit(json_decode($request->getContent(), true));

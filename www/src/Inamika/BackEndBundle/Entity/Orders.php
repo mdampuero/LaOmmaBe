@@ -30,28 +30,12 @@ class Orders
     private $id;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="total", type="float")
-     * @Assert\NotBlank()
-     */
-    private $total;
-    
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="total_vat", type="float")
-     * @Assert\NotBlank()
-     */
-    private $totalVat;
-
-    /**
      * One Cart has One Customer.
      * @ORM\ManyToOne(targetEntity="Customer", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
-    private $customerId;
+    private $customer;
 
     /**
      * Many features have one OrersStatus. This is the owning side.
@@ -74,13 +58,6 @@ class Orders
      * @ORM\Column(name="customer_name", type="string", length=255,nullable=true)
      */
     private $customerName;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="transport", type="string", length=255,nullable=true)
-     */
-    private $transport;
     
     /**
      * @var string
@@ -111,7 +88,7 @@ class Orders
     private $isDelete=false;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrdersItem", mappedBy="orderId")
+     * @ORM\OneToMany(targetEntity="OrdersItem", mappedBy="order")
      * @Assert\NotBlank()
      */
     private $items;
@@ -164,27 +141,27 @@ class Orders
     }
 
     /**
-     * Set customerId.
+     * Set customer.
      *
-     * @param string $customerId
+     * @param string $customer
      *
      * @return OrdersItem
      */
-    public function setCustomerId($customerId)
+    public function setCustomer($customer)
     {
-        $this->customerId = $customerId;
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * Get customerId.
+     * Get customer.
      *
      * @return string
      */
-    public function getCustomerId()
+    public function getCustomer()
     {
-        return $this->customerId;
+        return $this->customer;
     }
 
     /**
@@ -211,30 +188,6 @@ class Orders
         return $this->total;
     }
    
-    /**
-     * Set totalVat.
-     *
-     * @param float $totalVat
-     *
-     * @return OrdersItem
-     */
-    public function setTotalVat($totalVat)
-    {
-        $this->totalVat = $totalVat;
-
-        return $this;
-    }
-
-    /**
-     * Get totalVat.
-     *
-     * @return float
-     */
-    public function getTotalVat()
-    {
-        return $this->totalVat;
-    }
-
     /**
      * Set observations.
      *
@@ -304,30 +257,6 @@ class Orders
     public function getCustomerName()
     {
         return $this->customerName;
-    }
-
-    /**
-     * Set transport.
-     *
-     * @param string $transport
-     *
-     * @return Orders
-     */
-    public function setTransport($transport)
-    {
-        $this->transport = $transport;
-
-        return $this;
-    }
-
-    /**
-     * Get transport.
-     *
-     * @return string
-     */
-    public function getTransport()
-    {
-        return $this->transport;
     }
 
     /**

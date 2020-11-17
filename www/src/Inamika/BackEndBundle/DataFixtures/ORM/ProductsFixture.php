@@ -12,10 +12,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Inamika\BackEndBundle\Entity\Menu;
+use Inamika\BackEndBundle\Entity\Product;
 use Inamika\BackEndBundle\Entity\Currency;
 
-class MenusFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
+class ProductsFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
 
     private $container;
 
@@ -25,7 +25,7 @@ class MenusFixture extends AbstractFixture implements OrderedFixtureInterface, C
     
     public function load(ObjectManager $manager){
         for ($i=1; $i<=100; $i++){
-            $menu = new Menu();
+            $menu = new Product();
             $menu->setName("Plato - ".$i);
             $menu->setCode("AA".$i);
             $menu->setPrice($i*1.10);

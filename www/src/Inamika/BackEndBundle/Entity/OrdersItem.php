@@ -32,14 +32,14 @@ class OrdersItem
      * @ORM\ManyToOne(targetEntity="Orders", inversedBy="items",cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
-    private $orderId;
+    private $order;
 
     /**
-     * One Cart has One Menu.
-     * @ORM\ManyToOne(targetEntity="Menu")
-     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     * One Cart has One Product.
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
-    private $menu;
+    private $product;
 
     /**
      * @var float
@@ -65,9 +65,9 @@ class OrdersItem
     /**
      * @var int
      *
-     * @ORM\Column(name="amount", type="integer")
+     * @ORM\Column(name="quantity", type="integer")
      */
-    private $amount;
+    private $quantity;
 
     /**
      * @var string
@@ -76,13 +76,6 @@ class OrdersItem
      */
     private $subtotal;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="subtotal_vat", type="string", length=255)
-     */
-    private $subtotalVat;
-
     /**
      * @var \DateTime
      *
@@ -116,51 +109,51 @@ class OrdersItem
     }
 
     /**
-     * Set orderId.
+     * Set order.
      *
-     * @param string $orderId
+     * @param string $order
      *
      * @return OrdersItem
      */
-    public function setOrderId($orderId)
+    public function setOrder($order)
     {
-        $this->orderId = $orderId;
+        $this->order = $order;
 
         return $this;
     }
 
     /**
-     * Get orderId.
+     * Get order.
      *
      * @return string
      */
-    public function getOrderId()
+    public function getOrder()
     {
-        return $this->orderId;
+        return $this->order;
     }
 
     /**
-     * Set menuId.
+     * Set product.
      *
-     * @param string $menuId
+     * @param string $product
      *
      * @return OrdersItem
      */
-    public function setMenuId($menuId)
+    public function setProduct($product)
     {
-        $this->menuId = $menuId;
+        $this->product = $product;
 
         return $this;
     }
 
     /**
-     * Get menuId.
+     * Get product.
      *
      * @return string
      */
-    public function getMenuId()
+    public function getProduct()
     {
-        return $this->menuId;
+        return $this->product;
     }
 
     /**
@@ -236,27 +229,27 @@ class OrdersItem
     }
 
     /**
-     * Set amount.
+     * Set quantity.
      *
-     * @param int $amount
+     * @param int $quantity
      *
      * @return OrdersItem
      */
-    public function setAmount($amount)
+    public function setQuantity($quantity)
     {
-        $this->amount = $amount;
+        $this->quantity = $quantity;
 
         return $this;
     }
 
     /**
-     * Get amount.
+     * Get quantity.
      *
      * @return int
      */
-    public function getAmount()
+    public function getQuantity()
     {
-        return $this->amount;
+        return $this->quantity;
     }
 
     /**
@@ -283,30 +276,6 @@ class OrdersItem
         return $this->subtotal;
     }
     
-    /**
-     * Set subtotalVat.
-     *
-     * @param string $subtotalVat
-     *
-     * @return OrdersItem
-     */
-    public function setSubtotalVat($subtotalVat)
-    {
-        $this->subtotalVat = $subtotalVat;
-
-        return $this;
-    }
-
-    /**
-     * Get subtotalVat.
-     *
-     * @return string
-     */
-    public function getSubtotalVat()
-    {
-        return $this->subtotalVat;
-    }
-
     /**
      * Set createdAt.
      *

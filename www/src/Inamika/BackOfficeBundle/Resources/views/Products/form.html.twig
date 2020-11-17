@@ -1,8 +1,8 @@
-{% set pathBase='inamika_backoffice_menus' %} 
+{% set pathBase='inamika_backoffice_products' %} 
 {% extends "InamikaBackOfficeBundle::layout.html.twig" %}
 {% block body %} 
 {{ parent()}}   
-{{ render(controller('Inamika\\BackOfficeBundle\\Controller\\MenusController::form',{ entity: entity})) }}  
+{{ render(controller('Inamika\\BackOfficeBundle\\Controller\\ProductsController::form',{ entity: entity})) }}  
 {% endblock body %}
 {% block javascripts %} 
 {{ parent() }}

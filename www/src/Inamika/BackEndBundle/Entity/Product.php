@@ -14,16 +14,16 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
 /**
- * Menu
+ * Product
  *
  * @ORM\Table(name="menu")
- * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\MenuRepository")
+ * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"code"}, repositoryMethod="getUniqueNotDeleted")
  * @ExclusionPolicy("all")
  */
 
-class Menu
+class Product
 {
     /**
      * @var string
@@ -124,7 +124,7 @@ class Menu
      *
      * @param string $name
      *
-     * @return Menu
+     * @return Product
      */
     public function setName($name)
     {
@@ -196,7 +196,7 @@ class Menu
      *
      * @param string $code
      *
-     * @return Menu
+     * @return Product
      */
     public function setCode($code)
     {
@@ -220,7 +220,7 @@ class Menu
      *
      * @param string|null $description
      *
-     * @return Menu
+     * @return Product
      */
     public function setDescription($description = null)
     {
@@ -244,7 +244,7 @@ class Menu
      *
      * @param \DateTime $createdAt
      *
-     * @return Menu
+     * @return Product
      */
     public function setCreatedAt($createdAt)
     {
@@ -268,7 +268,7 @@ class Menu
      *
      * @param \DateTime $updatedAt
      *
-     * @return Menu
+     * @return Product
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -292,7 +292,7 @@ class Menu
      *
      * @param bool $isDelete
      *
-     * @return Menu
+     * @return Product
      */
     public function setIsDelete($isDelete)
     {

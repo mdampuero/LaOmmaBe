@@ -67,12 +67,16 @@ inamika_backoffice_demos:
     resource: "@InamikaBackOfficeBundle/Resources/config/demos.yml"
     prefix:   /demos
 
-inamika_backoffice_menus:
-    resource: "@InamikaBackOfficeBundle/Resources/config/menus.yml"
-    prefix:   /menus
+inamika_backoffice_products:
+    resource: "@InamikaBackOfficeBundle/Resources/config/products.yml"
+    prefix:   /products
 
 inamika_backoffice_customers:
     resource: "@InamikaBackOfficeBundle/Resources/config/customers.yml"
     prefix:   /customers
+
+inamika_backoffice_orders:
+    resource: "@InamikaBackOfficeBundle/Resources/config/orders.yml"
+    prefix:   /orders
 
 

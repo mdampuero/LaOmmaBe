@@ -24,7 +24,7 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
         if($limit==0) $limit=30;
         $qb= $this->getAll()
         ->setFirstResult($offset)
-        ->join('e.customerId','customerId')
+        ->join('e.customer','customer')
         ->setMaxResults($limit);
         if($sort){
             if ($sort=='5') 
@@ -38,12 +38,12 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
             if(count($words)>1){
                 foreach ($words as $key => $word) {
                     $queryString=array();
-                    $queryString[]='CONCAT(customerId.name,customerId.email,customerId.phone,customerId.document) LIKE :word'.$key;
+                    $queryString[]='CONCAT(customer.name,customer.email,customer.phone) LIKE :word'.$key;
                     $qb->setParameter('word'.$key,"%".$word."%");
                     $qb->andWhere(join(' AND ',$queryString));
                 }
             }else{
-                $qb->andWhere('CONCAT(customerId.name,customerId.email,customerId.phone,customerId.document) LIKE :query')->setParameter('query',"%".$query."%");
+                $qb->andWhere('CONCAT(customer.name,customer.email,customer.phone) LIKE :query')->setParameter('query',"%".$query."%");
             }
         }
         return $qb;
@@ -56,7 +56,7 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
         ->setFirstResult($offset)
         ->setMaxResults($limit)
         ->orderBy('e.createdAt','DESC')
-        ->andWhere('e.customerId = :id')->setParameter('id',$id);
+        ->andWhere('e.customer = :id')->setParameter('id',$id);
         return $qb;
     }
 
