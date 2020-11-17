@@ -26,8 +26,8 @@ class SettingsFixture extends AbstractFixture implements OrderedFixtureInterface
         
         $setting = new Setting();
         $setting->setId("setting");
-        $setting->setTitle("Urdapilleta");
-        $setting->setCopyright("© ".date('Y')." - Inamika");
+        $setting->setTitle("La Omma Gastrobar");
+        $setting->setCopyright("© ".date('Y')." - apachecms.com.ar");
         $manager->persist($setting);
         $manager->flush();
     }
