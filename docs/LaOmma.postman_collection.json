@@ -382,6 +382,92 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/orders/10",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"orders",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"channel\": \"APP\",\n    \"customer\": \"a9600281-2928-11eb-ab73-0242ac180005\",\n    \"items\":[\n        {\n            \"id\": \"7b64b398-2928-11eb-ab73-0242ac180005\",\n            \"name\": \"Plato - 98\",\n            \"code\": \"AA98\",\n            \"price\": 107.8,\n            \"quantity\":65,\n            \"description\": \"Description menu - 98\",\n            \"isDelete\": false\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/orders",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "918794b4-a9e2-4c36-bf83-eba718b7f700",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e48ae71-4dc3-41c0-8d14-f4d4a5e53d7f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
