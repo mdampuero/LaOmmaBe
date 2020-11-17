@@ -47,22 +47,6 @@ class UserAddType extends AbstractType
                 'SI' => 1,
                 'NO' => 0
         )))
-        ->add('projects', EntityType::class, array(
-            'class' => 'InamikaBackEndBundle:Project',
-            'choice_label' => 'name',
-            'multiple' => true,
-            'expanded' => true,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('e')
-                ->where("e.isDelete=:isDelete")->setParameter('isDelete',false)
-                ->orderBy('e.name', 'ASC');
-            },
-            // 'choice_label' => function($entity, $key, $index) {
-            //     /** @var Project $projects */
-            //     // $labelPrice=($entity->getPrice()==0)?' (Gratis)':' ('.number_format($entity->getPrice(),0,',','.').')';
-            //     // return $entity->getName().$labelPrice;
-            // },
-        ))
         ->add('pictureBase64',HiddenType::class,array("mapped" => false))
         ->add('picture', FileType::class, array(
             'label'=>'PHOTO',

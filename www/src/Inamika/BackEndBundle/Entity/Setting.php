@@ -44,29 +44,6 @@ class Setting
      * @Expose
      */
     private $title;
-   
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tokko_url", type="string", length=255,nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Url()
-     * @Expose
-     */
-    private $tokkoUrl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tokko_key", type="string", length=255,nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min = 15,
-     *      max = 64
-     * )
-     * @Expose
-     */
-    private $tokkoKey;
 
     /**
      * @var string
@@ -145,54 +122,6 @@ class Setting
     public function getTitle()
     {
         return $this->title;
-    }
-    
-    /**
-     * Set tokkoUrl.
-     *
-     * @param string $tokkoUrl
-     *
-     * @return Setting
-     */
-    public function setTokkoUrl($tokkoUrl)
-    {
-        $this->tokkoUrl = $tokkoUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get tokkoUrl.
-     *
-     * @return string
-     */
-    public function getTokkoUrl()
-    {
-        return $this->tokkoUrl;
-    }
-    
-    /**
-     * Set tokkoKey.
-     *
-     * @param string $tokkoKey
-     *
-     * @return Setting
-     */
-    public function setTokkoKey($tokkoKey)
-    {
-        $this->tokkoKey = $tokkoKey;
-
-        return $this;
-    }
-
-    /**
-     * Get tokkoKey.
-     *
-     * @return string
-     */
-    public function getTokkoKey()
-    {
-        return $this->tokkoKey;
     }
     
     /**

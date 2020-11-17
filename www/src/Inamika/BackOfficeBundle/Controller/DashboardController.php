@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 class DashboardController extends Controller
 {
     public function indexAction(){
-        return $this->redirectToRoute('inamika_backoffice_projects');
-        // return $this->render('InamikaBackOfficeBundle:Dashboard:index.html.twig');
+        return $this->render('InamikaBackOfficeBundle:Dashboard:index.html.twig');
     }
 }

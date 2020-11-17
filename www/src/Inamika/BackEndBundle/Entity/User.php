@@ -56,15 +56,6 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $username;
 
-    /**
-     * Many Users have Many Projects.
-     * @ORM\ManyToMany(targetEntity="Project")
-     * @ORM\JoinTable(name="user_project",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")}
-     *      )
-     */
-    private $projects;
 
     /**
      * @var string
@@ -195,7 +186,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function __construct()
     {
-        $this->projects = new ArrayCollection();
+        
     }
 
     /**
@@ -206,34 +197,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set projects
-     *
-     * @param string $projects
-     *
-     * @return Flight
-     */
-    public function setProjects($projects)
-    {
-        $this->projects = $projects;
-
-        return $this;
-    }
-
-    /**
-     * Get projects
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProjects()
-    {
-        // $criteria = Criteria::create();
-        // $criteria->where(Criteria::expr()->gt('status', 0));
-        // $criteria->andWhere(Criteria::expr()->eq('isDelete', false));
-        // return $this->projects->matching($criteria);
-        return $this->projects;
     }
 
 
