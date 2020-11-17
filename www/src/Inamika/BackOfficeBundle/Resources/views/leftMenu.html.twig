@@ -10,7 +10,13 @@
                         <i class="mdi mdi-gauge"></i><span class="hide-menu">{{ 'DASHBOARD' | trans }}</span>
                     </a>
                 </li>
+                <li class="{% if (app.request.get('_route') == 'inamika_backoffice_menus') %}active{% endif %}">
+                    <a href="{{ path('inamika_backoffice_menus')}}" aria-expanded="false">
+                        <i class="mdi mdi-silverware"></i><span class="hide-menu">{{ 'MENU' | trans }}</span>
+                    </a>
+                </li>
                 {% if is_granted('ROLE_SUPER') %}
+                {# <li class="nav-small-cap">{{ 'USERS' | trans }}</li> #}
                 <li class="{% if 'inamika_backoffice_users' in app.request.get('_route') %}active{% endif %}">
                     <a href="{{ path('inamika_backoffice_users')}}" aria-expanded="false">
                         <i class="mdi mdi-account"></i><span class="hide-menu">{{ 'USERS' | trans }}</span>

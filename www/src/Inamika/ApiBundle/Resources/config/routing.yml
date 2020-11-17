@@ -6,3 +6,9 @@ api_settings:
 
 api_demos:
     resource: "@InamikaApiBundle/Resources/config/demos.yml"
+
+api_menus:
+    resource: "@InamikaApiBundle/Resources/config/menus.yml"
+
+api_customers:
+    resource: "@InamikaApiBundle/Resources/config/customers.yml"

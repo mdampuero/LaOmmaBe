@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-md-6 col-lg-6">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'NAME' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.name }}</h5>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'CODE' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.code }}</h5>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'PRICE' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.currency.symbol }} {{ entity.price }}</h5>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'DESCRIPTION' | trans }}</h4>
+			<p class="card-subtitle">{{ entity.description }}</p>
+		</div>
+	</div>
+</div>

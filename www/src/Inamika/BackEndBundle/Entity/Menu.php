@@ -1,5 +1,10 @@
 <?php
 
+//
+//  Created by Mauricio Ampuero <mdampuero@gmail.com> on 2019.
+//  Copyright © 2019 Inamika S.A. All rights reserved.
+//
+
 namespace Inamika\BackEndBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,19 +14,17 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
 /**
- * Currency
+ * Menu
  *
- * @ORM\Table(name="currency")
- * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\CurrencyRepository")
+ * @ORM\Table(name="menu")
+ * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\MenuRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"name"}, repositoryMethod="getUniqueNotDeleted")
+ * @UniqueEntity(fields={"code"}, repositoryMethod="getUniqueNotDeleted")
+ * @ExclusionPolicy("all")
  */
-class Currency
-{
-    const ARS='ARS';
-    const USD='USD';
-    const EUR='EUR';
 
+class Menu
+{
     /**
      * @var string
      *
@@ -37,6 +40,11 @@ class Currency
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 64
+     * )
+     * @Expose
      */
     private $name;
     
@@ -45,25 +53,38 @@ class Currency
      *
      * @ORM\Column(name="code", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 10
+     * )
+     * @Expose
      */
     private $code;
 
     /**
-     * @var string
+     * Many features have one Currency. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Currency")
+     * @Expose
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     */
+    private $currency;
+
+    /**
+     * @var float
      *
-     * @ORM\Column(name="symbol", type="string",length=255)
+     * @ORM\Column(name="price", type="float")
      * @Assert\NotBlank()
      * @Expose
      */
-    private $symbol;
+    private $price;
 
     /**
-     * @var bool
+     * @var string|null
      *
-     * @ORM\Column(name="is_default", type="boolean")
+     * @ORM\Column(name="description", type="text", nullable=true)
      * @Expose
      */
-    private $isDefault=false;
+    private $description;
 
     /**
      * @var \DateTime
@@ -83,22 +104,10 @@ class Currency
      * @var bool
      *
      * @ORM\Column(name="is_delete", type="boolean")
+     * @Expose
      */
     private $isDelete=false;
 
-    /**
-     * Set id.
-     *
-     * @param string $id
-     *
-     * @return Currency
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id.
@@ -115,7 +124,7 @@ class Currency
      *
      * @param string $name
      *
-     * @return Currency
+     * @return Menu
      */
     public function setName($name)
     {
@@ -135,11 +144,59 @@ class Currency
     }
     
     /**
+     * Set currency.
+     *
+     * @param string $currency
+     *
+     * @return Product
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency.
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Set price.
+     *
+     * @param float|null $price
+     *
+     * @return Product
+     */
+    public function setPrice($price = null)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price.
+     *
+     * @return float|null
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+    
+    /**
      * Set code.
      *
      * @param string $code
      *
-     * @return Currency
+     * @return Menu
      */
     public function setCode($code)
     {
@@ -159,51 +216,27 @@ class Currency
     }
 
     /**
-     * Set symbol.
+     * Set description.
      *
-     * @param string $symbol
+     * @param string|null $description
      *
-     * @return Currency
+     * @return Menu
      */
-    public function setSymbol($symbol = null)
+    public function setDescription($description = null)
     {
-        $this->symbol = $symbol;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get symbol.
+     * Get description.
      *
-     * @return string
+     * @return string|null
      */
-    public function getSymbol()
+    public function getDescription()
     {
-        return $this->symbol;
-    }
-
-    /**
-     * Set isDefault
-     *
-     * @param boolean $isDefault
-     *
-     * @return Currency
-     */
-    public function setIsDefault($isDefault)
-    {
-        $this->isDefault = $isDefault;
-
-        return $this;
-    }
-
-    /**
-     * Get isDefault
-     *
-     * @return bool
-     */
-    public function getIsDefault()
-    {
-        return $this->isDefault;
+        return $this->description;
     }
 
     /**
@@ -211,7 +244,7 @@ class Currency
      *
      * @param \DateTime $createdAt
      *
-     * @return Currency
+     * @return Menu
      */
     public function setCreatedAt($createdAt)
     {
@@ -235,9 +268,9 @@ class Currency
      *
      * @param \DateTime $updatedAt
      *
-     * @return Currency
+     * @return Menu
      */
-    public function setUpdateAt($updatedAt)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -249,7 +282,7 @@ class Currency
      *
      * @return \DateTime
      */
-    public function getUpdateAt()
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -259,7 +292,7 @@ class Currency
      *
      * @param bool $isDelete
      *
-     * @return Currency
+     * @return Menu
      */
     public function setIsDelete($isDelete)
     {
@@ -278,7 +311,7 @@ class Currency
         return $this->isDelete;
     }
 
-     /**
+    /**
      * @ORM\PrePersist
      */
     public function setCreatedAtValue()

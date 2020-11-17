@@ -12,9 +12,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Inamika\BackEndBundle\Entity\Menu;
 use Inamika\BackEndBundle\Entity\Currency;
 
-class CurrenciesFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
+class MenusFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
 
     private $container;
 
@@ -23,17 +24,19 @@ class CurrenciesFixture extends AbstractFixture implements OrderedFixtureInterfa
     }
     
     public function load(ObjectManager $manager){
-        $EUR = new Currency();
-        $EUR->setId(Currency::EUR);
-        $EUR->setName("Euro");
-        $EUR->setCode(Currency::EUR);
-        $EUR->setSymbol("€");
-        $EUR->setIsDefault(true);
-        $manager->persist($EUR);        
+        for ($i=1; $i<=100; $i++){
+            $menu = new Menu();
+            $menu->setName("Plato - ".$i);
+            $menu->setCode("AA".$i);
+            $menu->setPrice($i*1.10);
+            $menu->setCurrency($manager->getRepository(Currency::class)->findOneByIsDefault(true));
+            $menu->setDescription("Description menu - ".$i);
+            $manager->persist($menu);
+        }
         $manager->flush();
     }
     
     public function getOrder(){
-        return 4;
+        return 5;
     }
 }

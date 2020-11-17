@@ -1,0 +1,59 @@
+inamika_backoffice_menus:
+    path:     /
+    defaults: 
+        _controller: InamikaBackOfficeBundle:Menus:index
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Menus
+            parent_route: inamika_backoffice_homepage
+            
+inamika_backoffice_menus_add:
+    path:     /new
+    defaults: { _controller: InamikaBackOfficeBundle:Menus:add }
+    options:
+        breadcrumb:
+            label: Agregar menú
+            parent_route: inamika_backoffice_menus
+    methods: [GET]
+
+inamika_backoffice_menus_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Menus:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Menú
+            parent_route: inamika_backoffice_menus
+
+inamika_backoffice_menus_import:
+    path:     /import
+    defaults: { _controller: InamikaBackOfficeBundle:Customers:import }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Importar menú
+            parent_route: inamika_backoffice_menus
+
+inamika_backoffice_menus_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Menus:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Menú
+            parent_route: inamika_backoffice_menus
+
+inamika_backoffice_menus_edit:
+    path:     /edit/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Menus:edit }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Editar menú
+            parent_route: inamika_backoffice_menus
+
+inamika_backoffice_menus_delete:
+    path:     /delete/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Menus:delete }
+    methods: [POST,DELETE]

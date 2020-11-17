@@ -92,7 +92,6 @@ security:
 
         # Dejar esta regla siempre al final
         - { path: ^/admin/*, roles: [ROLE_OPER] }
-        - { path: ^/api/*, roles: [ROLE_OPER] }
         # - { path: ^/api/admin/*, roles: [ROLE_OPER] }
 
         

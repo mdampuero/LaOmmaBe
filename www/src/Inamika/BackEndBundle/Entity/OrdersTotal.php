@@ -4,24 +4,18 @@ namespace Inamika\BackEndBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
 /**
- * Currency
+ * OrdersTotal
  *
- * @ORM\Table(name="currency")
- * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\CurrencyRepository")
+ * @ORM\Table(name="orders_total")
+ * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\OrdersTotalRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"name"}, repositoryMethod="getUniqueNotDeleted")
  */
-class Currency
+class OrdersTotal
 {
-    const ARS='ARS';
-    const USD='USD';
-    const EUR='EUR';
-
     /**
      * @var string
      *
@@ -35,35 +29,38 @@ class Currency
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="Orders", inversedBy="totals",cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
-    private $name;
+    private $order;
+
+    /**
+     * One Cart has One Currency.
+     * @ORM\ManyToOne(targetEntity="Currency")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     */
+    private $currency;
+
+     /**
+     * @var float
+     *
+     * @ORM\Column(name="gross", type="float")
+     */
+    private $gross;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total", type="float")
+     */
+    private $total;
     
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="code", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="vat", type="float")
      */
-    private $code;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="symbol", type="string",length=255)
-     * @Assert\NotBlank()
-     * @Expose
-     */
-    private $symbol;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="is_default", type="boolean")
-     * @Expose
-     */
-    private $isDefault=false;
+    private $vat;
 
     /**
      * @var \DateTime
@@ -86,19 +83,6 @@ class Currency
      */
     private $isDelete=false;
 
-    /**
-     * Set id.
-     *
-     * @param string $id
-     *
-     * @return Currency
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id.
@@ -111,99 +95,123 @@ class Currency
     }
 
     /**
-     * Set name.
+     * Set order.
      *
-     * @param string $name
+     * @param string $order
      *
-     * @return Currency
+     * @return OrdersTotal
      */
-    public function setName($name)
+    public function setOrder($order)
     {
-        $this->name = $name;
+        $this->order = $order;
 
         return $this;
     }
 
     /**
-     * Get name.
+     * Get order.
      *
      * @return string
      */
-    public function getName()
+    public function getOrder()
     {
-        return $this->name;
+        return $this->order;
+    }
+
+    /**
+     * Set currency.
+     *
+     * @param string $currency
+     *
+     * @return OrdersTotal
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency.
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Set total.
+     *
+     * @param float $total
+     *
+     * @return OrdersTotal
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * Get total.
+     *
+     * @return float
+     */
+    public function getTotal()
+    {
+        return $this->total;
     }
     
     /**
-     * Set code.
+     * Set gross.
      *
-     * @param string $code
+     * @param float $gross
      *
-     * @return Currency
+     * @return OrdersTotal
      */
-    public function setCode($code)
+    public function setGross($gross)
     {
-        $this->code = $code;
+        $this->gross = $gross;
 
         return $this;
     }
 
     /**
-     * Get code.
+     * Get gross.
      *
-     * @return string
+     * @return float
      */
-    public function getCode()
+    public function getGross()
     {
-        return $this->code;
+        return $this->gross;
     }
-
+    
     /**
-     * Set symbol.
+     * Set vat.
      *
-     * @param string $symbol
+     * @param float $vat
      *
-     * @return Currency
+     * @return OrdersTotal
      */
-    public function setSymbol($symbol = null)
+    public function setVat($vat)
     {
-        $this->symbol = $symbol;
+        $this->vat = $vat;
 
         return $this;
     }
 
     /**
-     * Get symbol.
+     * Get vat.
      *
-     * @return string
+     * @return float
      */
-    public function getSymbol()
+    public function getVat()
     {
-        return $this->symbol;
-    }
-
-    /**
-     * Set isDefault
-     *
-     * @param boolean $isDefault
-     *
-     * @return Currency
-     */
-    public function setIsDefault($isDefault)
-    {
-        $this->isDefault = $isDefault;
-
-        return $this;
-    }
-
-    /**
-     * Get isDefault
-     *
-     * @return bool
-     */
-    public function getIsDefault()
-    {
-        return $this->isDefault;
+        return $this->vat;
     }
 
     /**
@@ -211,7 +219,7 @@ class Currency
      *
      * @param \DateTime $createdAt
      *
-     * @return Currency
+     * @return OrdersTotal
      */
     public function setCreatedAt($createdAt)
     {
@@ -235,9 +243,9 @@ class Currency
      *
      * @param \DateTime $updatedAt
      *
-     * @return Currency
+     * @return OrdersTotal
      */
-    public function setUpdateAt($updatedAt)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -249,7 +257,7 @@ class Currency
      *
      * @return \DateTime
      */
-    public function getUpdateAt()
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -259,7 +267,7 @@ class Currency
      *
      * @param bool $isDelete
      *
-     * @return Currency
+     * @return OrdersTotal
      */
     public function setIsDelete($isDelete)
     {
@@ -278,7 +286,7 @@ class Currency
         return $this->isDelete;
     }
 
-     /**
+    /**
      * @ORM\PrePersist
      */
     public function setCreatedAtValue()

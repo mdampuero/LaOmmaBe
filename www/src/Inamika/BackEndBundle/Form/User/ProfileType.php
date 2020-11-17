@@ -35,29 +35,29 @@ class ProfileType extends AbstractType
             'constraints' => array(new Length(array('min'=>6,'max'=>32))),
             'first_options'  => array('label'=>'PASSWORD','label_attr'=>array('class'=>'control-label'),'attr'=>array('class'=>'form-control')),
             'second_options' => array('label'=>'REPEAT_PASSWORD','label_attr'=>array('class'=>'control-label'),'attr'=>array('class'=>'form-control')),
-        ));
-        // if($this->user->getRole()!='ROLE_SUPER'){
-        //     ->add('role',ChoiceType::class, array('label'=>'ROLE','label_attr'=>array('class'=>'control-label'),'attr'=>array('class'=>'form-control'),'choices' => array(
-        //         'Superusuario' => 'ROLE_SUPER',
-        //         'Administrador' => 'ROLE_ADMIN',
-        //         'Operador' => 'ROLE_OPER'
-        //         )))
-        // }else{
-        //     $builder->add('userId', EntityType::class, array(
-        //         'label'=>'Usuario *',
-        //         'placeholder' => "-- Usuario --",
-        //         'class' => 'ApachecmsBackendBundle:User',
-        //         'query_builder' => function (EntityRepository $er) {
-        //             $qb = $er->createQueryBuilder('u');
-        //             $choices=$qb->where('u.isDelete=0')
-        //             ->andWhere('u.role = :role')->setParameter('role', 'ROLE_ADMIN')
-        //             ->orderBy('u.fullname', 'ASC');
-        //             return $choices;
-        //         },
-        //         'choice_label' => 'fullname',
-        //         ))->add('isActive',NULL,array('label'=>'Activo'));
-        // }
-        
+            ));
+            // if($this->user->getRole()!='ROLE_SUPER'){
+            //     ->add('role',ChoiceType::class, array('label'=>'ROLE','label_attr'=>array('class'=>'control-label'),'attr'=>array('class'=>'form-control'),'choices' => array(
+            //         'Superusuario' => 'ROLE_SUPER',
+            //         'Administrador' => 'ROLE_ADMIN',
+            //         'Operador' => 'ROLE_OPER'
+            //         )))
+            // }else{
+            //     $builder->add('userId', EntityType::class, array(
+            //         'label'=>'Usuario *',
+            //         'placeholder' => "-- Usuario --",
+            //         'class' => 'ApachecmsBackendBundle:User',
+            //         'query_builder' => function (EntityRepository $er) {
+            //             $qb = $er->createQueryBuilder('u');
+            //             $choices=$qb->where('u.isDelete=0')
+            //             ->andWhere('u.role = :role')->setParameter('role', 'ROLE_ADMIN')
+            //             ->orderBy('u.fullname', 'ASC');
+            //             return $choices;
+            //         },
+            //         'choice_label' => 'fullname',
+            //         ))->add('isActive',NULL,array('label'=>'Activo'));
+            // }
+            
         $builder
         ->add('pictureRemove',HiddenType::class,array("mapped" => false))
         ->add('pictureBase64',HiddenType::class,array("mapped" => false))

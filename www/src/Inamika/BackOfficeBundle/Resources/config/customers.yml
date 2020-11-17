@@ -5,7 +5,7 @@ inamika_backoffice_customers:
     methods: [GET]
     options:
         breadcrumb:
-            label: Propietarios
+            label: Clientes
             parent_route: inamika_backoffice_homepage
             
 inamika_backoffice_customers_add:
@@ -13,27 +13,9 @@ inamika_backoffice_customers_add:
     defaults: { _controller: InamikaBackOfficeBundle:Customers:add }
     options:
         breadcrumb:
-            label: Agregar propietario
+            label: Agregar cliente
             parent_route: inamika_backoffice_customers
     methods: [GET]
-
-inamika_backoffice_customers_landing:
-    path:     /landing/{id}
-    defaults: { _controller: InamikaBackOfficeBundle:Customers:landing }
-    methods: [GET]
-    options:
-        breadcrumb:
-            label: Propietario
-            parent_route: inamika_backoffice_customers
-
-inamika_backoffice_customers_get:
-    path:     /get/{id}
-    defaults: { _controller: InamikaBackOfficeBundle:Customers:get }
-    methods: [GET]
-    options:
-        breadcrumb:
-            label: Propietario
-            parent_route: inamika_backoffice_customers
 
 inamika_backoffice_customers_edit:
     path:     /edit/{id}
@@ -41,16 +23,7 @@ inamika_backoffice_customers_edit:
     methods: [GET]
     options:
         breadcrumb:
-            label: Editar propieatario
-            parent_route: inamika_backoffice_customers
-
-inamika_backoffice_customers_import:
-    path:     /import
-    defaults: { _controller: InamikaBackOfficeBundle:Customers:import }
-    methods: [GET]
-    options:
-        breadcrumb:
-            label: Importar propietarios
+            label: Editar cliente
             parent_route: inamika_backoffice_customers
 
 inamika_backoffice_customers_delete:

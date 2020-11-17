@@ -1,0 +1,24 @@
+api_menus:
+    path:     /menus
+    defaults: { _controller: InamikaApiBundle:Menus:index }
+    methods: [GET]
+
+api_menus_get:
+    path:     /menus/{id}
+    defaults: { _controller: InamikaApiBundle:Menus:get }
+    methods: [GET]
+
+api_menus_post:
+    path:     /menus
+    defaults: { _controller: InamikaApiBundle:Menus:post }
+    methods: [POST]
+
+api_menus_put:
+    path:     /menus/{id}
+    defaults: { _controller: InamikaApiBundle:Menus:put }
+    methods: [PUT]
+
+api_menus_delete:
+    path:     /menus/{id}
+    defaults: { _controller: InamikaApiBundle:Menus:delete }
+    methods: [DELETE]

@@ -9,19 +9,15 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
 /**
- * Currency
+ * OrdersStatus
  *
- * @ORM\Table(name="currency")
- * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\CurrencyRepository")
+ * @ORM\Table(name="orders_status")
+ * @ORM\Entity(repositoryClass="Inamika\BackEndBundle\Repository\OrdersStatusRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"name"}, repositoryMethod="getUniqueNotDeleted")
  */
-class Currency
+class OrdersStatus
 {
-    const ARS='ARS';
-    const USD='USD';
-    const EUR='EUR';
-
     /**
      * @var string
      *
@@ -39,23 +35,15 @@ class Currency
      * @Assert\NotBlank()
      */
     private $name;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $code;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="symbol", type="string",length=255)
+     * @ORM\Column(name="color", type="string",length=255)
      * @Assert\NotBlank()
      * @Expose
      */
-    private $symbol;
+    private $color;
 
     /**
      * @var bool
@@ -86,19 +74,6 @@ class Currency
      */
     private $isDelete=false;
 
-    /**
-     * Set id.
-     *
-     * @param string $id
-     *
-     * @return Currency
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id.
@@ -115,7 +90,7 @@ class Currency
      *
      * @param string $name
      *
-     * @return Currency
+     * @return OrdersStatus
      */
     public function setName($name)
     {
@@ -133,53 +108,29 @@ class Currency
     {
         return $this->name;
     }
-    
+
     /**
-     * Set code.
+     * Set color.
      *
-     * @param string $code
+     * @param float|null $color
      *
-     * @return Currency
+     * @return OrdersStatus
      */
-    public function setCode($code)
+    public function setColor($color = null)
     {
-        $this->code = $code;
+        $this->color = $color;
 
         return $this;
     }
 
     /**
-     * Get code.
+     * Get color.
      *
-     * @return string
+     * @return float|null
      */
-    public function getCode()
+    public function getColor()
     {
-        return $this->code;
-    }
-
-    /**
-     * Set symbol.
-     *
-     * @param string $symbol
-     *
-     * @return Currency
-     */
-    public function setSymbol($symbol = null)
-    {
-        $this->symbol = $symbol;
-
-        return $this;
-    }
-
-    /**
-     * Get symbol.
-     *
-     * @return string
-     */
-    public function getSymbol()
-    {
-        return $this->symbol;
+        return $this->color;
     }
 
     /**
@@ -187,7 +138,7 @@ class Currency
      *
      * @param boolean $isDefault
      *
-     * @return Currency
+     * @return OrdersStatus
      */
     public function setIsDefault($isDefault)
     {
@@ -211,7 +162,7 @@ class Currency
      *
      * @param \DateTime $createdAt
      *
-     * @return Currency
+     * @return OrdersStatus
      */
     public function setCreatedAt($createdAt)
     {
@@ -235,7 +186,7 @@ class Currency
      *
      * @param \DateTime $updatedAt
      *
-     * @return Currency
+     * @return OrdersStatus
      */
     public function setUpdateAt($updatedAt)
     {
@@ -259,7 +210,7 @@ class Currency
      *
      * @param bool $isDelete
      *
-     * @return Currency
+     * @return OrdersStatus
      */
     public function setIsDelete($isDelete)
     {

@@ -67,27 +67,12 @@ inamika_backoffice_demos:
     resource: "@InamikaBackOfficeBundle/Resources/config/demos.yml"
     prefix:   /demos
 
-inamika_backoffice_projects:
-    resource: "@InamikaBackOfficeBundle/Resources/config/projects.yml"
-    prefix:   /emprendimientos
-
-inamika_backoffice_projectsLevels_blocks:
-    resource: "@InamikaBackOfficeBundle/Resources/config/projectsLevels.yml"
-    prefix:   /niveles
-
-inamika_backoffice_unitsStatus:
-    resource: "@InamikaBackOfficeBundle/Resources/config/unitsStatus.yml"
-    prefix:   /estados
-
-inamika_backoffice_unitsTypes:
-    resource: "@InamikaBackOfficeBundle/Resources/config/unitsTypes.yml"
-    prefix:   /tipos
-
-inamika_backoffice_units:
-    resource: "@InamikaBackOfficeBundle/Resources/config/units.yml"
-    prefix:   /unidades
+inamika_backoffice_menus:
+    resource: "@InamikaBackOfficeBundle/Resources/config/menus.yml"
+    prefix:   /menus
 
 inamika_backoffice_customers:
     resource: "@InamikaBackOfficeBundle/Resources/config/customers.yml"
-    prefix:   /propietarios
+    prefix:   /customers
+
 

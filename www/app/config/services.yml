@@ -22,6 +22,8 @@ services:
             tags: ['doctrine.fixture.orm']
     Inamika\BackEndBundle\DataFixtures\ORM\DemosFixture:
             tags: ['doctrine.fixture.orm']
+    Inamika\BackEndBundle\DataFixtures\ORM\MenusFixture:
+            tags: ['doctrine.fixture.orm']
     Inamika\BackEndBundle\DataFixtures\ORM\CurrenciesFixture:
             tags: ['doctrine.fixture.orm']
     # controllers are imported separately to make sure they're public

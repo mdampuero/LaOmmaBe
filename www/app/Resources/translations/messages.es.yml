@@ -136,4 +136,6 @@ IS_FILTER_DEFAULT: 'Filtro por defecto'
 NAME_COMPLETE: 'Nombre y Apellido'
 ICON: 'Ícono'
 EXPORT: 'Exportar'
+MENU: 'Menú'
+CODE: 'Código'
 
