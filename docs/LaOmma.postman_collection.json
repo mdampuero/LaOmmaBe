@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "7902a867-9090-441b-a791-a7a94ace762d",
+		"name": "LaOmma",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Menus",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/menus?start=0&length=50&search%5Bvalue%5D=&sort=name&direction=desc",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"menus"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "length",
+									"value": "50"
+								},
+								{
+									"key": "search%5Bvalue%5D",
+									"value": ""
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								},
+								{
+									"key": "direction",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/menus/cdc10ced-2916-11eb-ab73-0242ac180005",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"menus",
+								"cdc10ced-2916-11eb-ab73-0242ac180005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Menu desde API\",\n    \"code\":\"APP001\",\n    \"price\":\"123.45\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/menus/cdc10ced-2916-11eb-ab73-0242ac180005",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"menus",
+								"cdc10ced-2916-11eb-ab73-0242ac180005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Menu desde API\",\n    \"code\":\"APP002\",\n    \"price\":\"123.45\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/menus",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/menus/cdc10ced-2916-11eb-ab73-0242ac180005",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"menus",
+								"cdc10ced-2916-11eb-ab73-0242ac180005"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a45741a2-414e-4c1a-8ed7-7291c6148f2e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b63dbc07-5743-4e22-8234-d4f0c0a9e29f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/customers?start=0&length=50&search%5Bvalue%5D=&sort=name&direction=desc",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "length",
+									"value": "50"
+								},
+								{
+									"key": "search%5Bvalue%5D",
+									"value": ""
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								},
+								{
+									"key": "direction",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/customers/009ac983-2918-11eb-ab73-0242ac180005",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"customers",
+								"009ac983-2918-11eb-ab73-0242ac180005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mauricio Ampuero\",\n    \"document\": null,\n    \"token\": null,\n    \"email\": \"mdampuero@gmail.com\",\n    \"username\": null,\n    \"password\": \"d41d8cd98f00b204\",\n    \"phone\": \"2616636938\",\n    \"isSeller\": false,\n    \"address\": \"Barrio Alto Rodeo B-25\",\n    \"city\": \"Guaymallén\",\n    \"provence\": null,\n    \"observations\": \"Groso\",\n    \"createdAt\": \"2020-11-17T18:43:57+00:00\",\n    \"updatedAt\": \"2020-11-17T18:43:57+00:00\",\n    \"isDelete\": false,\n    \"role\": \"ROLE_USER\",\n    \"codeActive\": null,\n    \"expirationCode\": null,\n    \"isActive\": true,\n    \"isValidate\": false,\n    \"isLocked\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/customers/009ac983-2918-11eb-ab73-0242ac180005",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"customers",
+								"009ac983-2918-11eb-ab73-0242ac180005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mauricio Ampuero\",\n    \"email\": \"mdampuero1@gmail.com\",\n    \"password\": \"d41d8cd98f00b204\",\n    \"phone\": \"2616636938\",\n    \"address\": \"Barrio Alto Rodeo B-25\",\n    \"city\": \"Guaymallén\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/customers",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://laomma.apachecms.com.ar:8080/app.php/api/customers/009ac983-2918-11eb-ab73-0242ac180005",
+							"protocol": "http",
+							"host": [
+								"laomma",
+								"apachecms",
+								"com",
+								"ar"
+							],
+							"port": "8080",
+							"path": [
+								"app.php",
+								"api",
+								"customers",
+								"009ac983-2918-11eb-ab73-0242ac180005"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
