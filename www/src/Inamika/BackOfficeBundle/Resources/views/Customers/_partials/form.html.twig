@@ -1,0 +1,52 @@
+{{ form_start(form, {'attr': {'class': 'form-material sendToApi','novalidate':'novalidate'} }) }}
+    <div class="form-body">
+        <h3 class="card-title">{{ 'GENERAL_DATA' | trans }}</h3>
+        <hr>
+        <div class="row p-t-20">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form_label(form.name)}}
+                    {{form_widget(form.name)}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form_label(form.email)}}
+                    {{form_widget(form.email)}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form_label(form.phone)}}
+                    {{form_widget(form.phone)}}
+                </div>
+            </div>
+        </div>
+        <h3 class="card-title">{{ 'POSTAL_DATA' | trans }}</h3>
+        <hr>
+        <div class="row p-t-20">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form_label(form.address)}}
+                    {{form_widget(form.address)}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form_label(form.city)}}
+                    {{form_widget(form.city)}}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{form_label(form.observations)}}
+                    {{form_widget(form.observations)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> {{ 'SAVE' | trans }}</button>
+        <button type="button" class="btn btn-inverse" onclick="cancell()">{{ 'CANCEL' | trans }}</button>
+    </div>
+{{ form_end(form) }}

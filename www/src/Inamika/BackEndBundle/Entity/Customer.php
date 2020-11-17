@@ -41,7 +41,6 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="document", type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
      */
     private $document;
     
@@ -71,7 +70,6 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 4,
      *      max = 32

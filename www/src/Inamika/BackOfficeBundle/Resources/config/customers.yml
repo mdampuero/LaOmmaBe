@@ -5,7 +5,7 @@ inamika_backoffice_customers:
     methods: [GET]
     options:
         breadcrumb:
-            label: Clientes
+            label: CUSTOMERS
             parent_route: inamika_backoffice_homepage
             
 inamika_backoffice_customers_add:
@@ -16,6 +16,33 @@ inamika_backoffice_customers_add:
             label: Agregar cliente
             parent_route: inamika_backoffice_customers
     methods: [GET]
+
+inamika_backoffice_customers_landing:
+    path:     /landing/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Customers:landing }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Demo
+            parent_route: inamika_backoffice_customers
+
+inamika_backoffice_customers_import:
+    path:     /import
+    defaults: { _controller: InamikaBackOfficeBundle:Customers:import }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Importar cliente
+            parent_route: inamika_backoffice_customers
+
+inamika_backoffice_customers_get:
+    path:     /get/{id}
+    defaults: { _controller: InamikaBackOfficeBundle:Customers:get }
+    methods: [GET]
+    options:
+        breadcrumb:
+            label: Demo
+            parent_route: inamika_backoffice_customers
 
 inamika_backoffice_customers_edit:
     path:     /edit/{id}

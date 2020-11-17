@@ -13,8 +13,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use FOS\RestBundle\Controller\FOSRestController;
 
 use Inamika\BackEndBundle\Entity\Customer;
-use Inamika\BackOfficeBundle\Form\Customer\CustomerType;
-use Inamika\BackOfficeBundle\Form\Customer\CustomerEditType;
+use Inamika\BackEndBundle\Form\Customer\CustomerType;
 use Inamika\BackEndBundle\Entity\Orders;
 
 class CustomersController extends FOSRestController
@@ -88,7 +87,7 @@ class CustomersController extends FOSRestController
     public function putAction(Request $request,$id){
         if(!$entity=$this->getDoctrine()->getRepository(Customer::class)->find($id))
             return $this->handleView($this->view(null, Response::HTTP_NOT_FOUND));
-        $form = $this->createForm(CustomerEditType::class, $entity);
+        $form = $this->createForm(CustomerType::class, $entity);
         $form->submit(json_decode($request->getContent(), true));
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();

@@ -23,7 +23,6 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
         if($limit>100) $limit=100;
         if($limit==0) $limit=30;
         $qb= $this->getAll()
-        ->join('e.customerCategory')
         ->setFirstResult($offset)
         ->setMaxResults($limit);
         if($sort){
@@ -38,12 +37,12 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
             if(count($words)>1){
                 foreach ($words as $key => $word) {
                     $queryString=array();
-                    $queryString[]="CONCAT(e.email,e.name,e.document) LIKE :word".$key;
+                    $queryString[]="CONCAT(e.name,COALESCE(e.description,'')) LIKE :word".$key;
                     $qb->setParameter('word'.$key,"%".$word."%");
                     $qb->andWhere(join(' AND ',$queryString));
                 }
             }else{
-                $qb->andWhere("CONCAT(e.email,e.name,e.document) LIKE :query")->setParameter('query',"%".$query."%");
+                $qb->andWhere("CONCAT(e.name,COALESCE(e.email,'')) LIKE :query")->setParameter('query',"%".$query."%");
             }
         }
         return $qb;

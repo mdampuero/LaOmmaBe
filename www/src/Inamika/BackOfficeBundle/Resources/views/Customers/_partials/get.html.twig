@@ -1,0 +1,44 @@
+<h3 class="card-title">{{ 'GENERAL_DATA' | trans }}</h3>
+<hr>
+<div class="row">
+	<div class="col-md-6 col-lg-6">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'NAME' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.name }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-6">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'EMAIL' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.email }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-6">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'PHONE' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.phone | default('N/E')}}</h5>
+		</div>
+	</div>
+</div>
+<h3 class="card-title">{{ 'POSTAL_DATA' | trans }}</h3>
+<hr>
+<div class="row">
+	<div class="col-md-6 col-lg-6">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'ADDRESS' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.address | default('N/E') }}</h5>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-6">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'CITY' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.city | default('N/E') }}</h5>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="form-group">
+			<h4 class="card-title">{{ 'OBSERVATIONS' | trans }}</h4>
+			<h5 class="card-subtitle">{{ entity.observations | default('N/E') }}</h5>
+		</div>
+	</div>
+</div>

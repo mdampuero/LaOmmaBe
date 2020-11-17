@@ -1,0 +1,17 @@
+{% set pathBase='inamika_backoffice_customers' %} 
+{% extends "InamikaBackOfficeBundle::layout.html.twig" %}
+{% block body %} 
+{{ parent()}}   
+{{ render(controller('Inamika\\BackOfficeBundle\\Controller\\CustomersController::form',{ entity: entity})) }}  
+{% endblock body %}
+{% block javascripts %} 
+{{ parent() }}
+<script>
+    function beforeSuccess(){
+        location.href="{{ path(pathBase) }}";
+    }
+    function cancell(){
+        location.href='{{ path(pathBase) }}';
+    }
+</script>
+{% endblock javascripts %}

@@ -15,6 +15,11 @@
                         <i class="mdi mdi-silverware"></i><span class="hide-menu">{{ 'MENU' | trans }}</span>
                     </a>
                 </li>
+                <li class="{% if 'inamika_backoffice_customers' in app.request.get('_route') %}active{% endif %}">
+                    <a href="{{ path('inamika_backoffice_customers')}}" aria-expanded="false">
+                        <i class="mdi mdi-account-card-details"></i><span class="hide-menu">{{ 'CUSTOMERS' | trans }}</span>
+                    </a>
+                </li>
                 {% if is_granted('ROLE_SUPER') %}
                 {# <li class="nav-small-cap">{{ 'USERS' | trans }}</li> #}
                 <li class="{% if 'inamika_backoffice_users' in app.request.get('_route') %}active{% endif %}">

@@ -8,14 +8,12 @@
 namespace Inamika\BackOfficeBundle\Controller;
 
 use Inamika\BackEndBundle\Entity\Customer;
-use Inamika\BackOfficeBundle\Form\Customer\CustomerType;
-use Inamika\BackOfficeBundle\Form\Customer\CustomerEditType;
-use Inamika\BackOfficeBundle\Form\Customer\BlankPassword;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Inamika\BackEndBundle\Form\Customer\CustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
-class CustomersController extends Controller{
+class CustomersController extends BaseController{
 
 	public function indexAction(){
 		return $this->render('InamikaBackOfficeBundle:Customers:index.html.twig',array(
@@ -23,29 +21,45 @@ class CustomersController extends Controller{
             ->setAction($this->generateUrl('api_customers_delete', array('id' => ':ENTITY_ID')))
             ->setMethod('DELETE')
             ->getForm()->createView(),
-            'formBlankPassword'=>$this->createForm(BlankPassword::class, new Customer(),array(
-                'method' => 'PUT',
-                'action' => $this->generateUrl('api_customers_blankPassword')
+        ));
+	}
+
+	public function addAction(){
+		return $this->render('InamikaBackOfficeBundle:Customers:form.html.twig',array('entity'=>new Customer()));
+    }	
+    
+    public function editAction($id){
+        return $this->render('InamikaBackOfficeBundle:Customers:form.html.twig',array('entity'=>$this->getDoctrine()->getRepository(Customer::class)->find($id)));
+    }
+    
+    public function landingAction($id){
+        return $this->render('InamikaBackOfficeBundle:Customers:landing.html.twig',array('id'=>$id));
+    }
+
+    public function getAction($id){
+        return $this->render('InamikaBackOfficeBundle:Customers:_partials/get.html.twig',array('entity'=>$this->getDoctrine()->getRepository(Customer::class)->find($id)));
+    }
+
+    public function importAction(){
+		return $this->render('InamikaBackOfficeBundle:Customers:import.html.twig',array(
+			'form' => $this->createForm(ImportType::class, null,array(
+                'method' => 'POST',
+                'action' => $this->generateUrl('api_customers_import')
             ))->createView()
         ));
     }
-
-    public function addAction(){
-        return $this->render('InamikaBackOfficeBundle:Customers:form.html.twig',array(
-            'form' => $this->createForm(CustomerType::class, new Customer(),array(
-                'method' => 'POST',
-                'action' => $this->generateUrl('api_customers_post')
-            ))->createView()
-        ));
-    }	
-
-    public function editAction($id){
-        $entity=$this->getDoctrine()->getRepository('InamikaBackEndBundle:Customer')->find($id);
-        return $this->render('InamikaBackOfficeBundle:Customers:form.html.twig',array(
-            'entity'=>$entity,
-            'form' => $this->createForm(CustomerEditType::class, $entity,array(
-                'method' => 'PUT',
-                'action' => $this->generateUrl('api_customers_put',array('id'=>$id))
+    
+	public function form($entity){
+        $method='POST';
+        $action=$this->generateUrl('api_customers_post');
+        if($entity->getId()){
+            $method='PUT';
+            $action=$this->generateUrl('api_customers_put',array('id'=>$entity->getId()));
+        }
+		return $this->render('InamikaBackOfficeBundle:Customers:_partials/form.html.twig',array(
+			'form' => $this->createForm(CustomerType::class, $entity,array(
+                'method' => $method,
+                'action' => $action
             ))->createView()
         ));
     }

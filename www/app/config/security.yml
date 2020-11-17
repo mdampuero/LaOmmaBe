@@ -88,7 +88,7 @@ security:
 
         - { path: ^/admin/demos/delete/*, roles: [ROLE_ADMIN] }
         - { path: ^/admin/setting/*, roles: [ROLE_SUPER] }
-        - { methods: [POST,PUT,DELETE] roles: [ROLE_ADMIN] }
+       # - { methods: [POST,PUT,DELETE] roles: [ROLE_ADMIN] }
 
         # Dejar esta regla siempre al final
         - { path: ^/admin/*, roles: [ROLE_OPER] }
