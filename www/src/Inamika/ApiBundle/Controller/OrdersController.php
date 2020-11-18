@@ -73,16 +73,26 @@ class OrdersController extends FOSRestController
                 $em->flush();
 
                 /** LOG */
-                $this->get('ApiCall')->post($this->generateUrl('api_logs_post',[],UrlGenerator::ABSOLUTE_URL),
-                    [
-                        "title"=>"Nuevo pedido",
-                        "description"=> "Ingreso de pedido desde '".$entity->getChannel()."'",
-                        "resource"=>"order_number_".$entity->getId(),
-                        "icon"=>"mdi mdi-login-variant",
-                        "status"=>"info",
-                        "user"=>null
-                    ]
-                );
+                $log = new Log();
+                $log->setTitle('Nuevo pedido');
+                $log->setDescription("Ingreso de pedido desde '".$entity->getChannel()."'");
+                $log->setResource("order_number_".$entity->getId());
+                $log->setIcon('mdi mdi-login-variant');
+                $log->setStatus('success');
+                $log->setUser(null);
+                $em->persist($log);
+                $em->flush();
+
+                // $this->get('ApiCall')->post($this->generateUrl('api_logs_post',[],UrlGenerator::ABSOLUTE_URL),
+                //     [
+                //         "title"=>"Nuevo pedido",
+                //         "description"=> "Ingreso de pedido desde '".$entity->getChannel()."'",
+                //         "resource"=>"order_number_".$entity->getId(),
+                //         "icon"=>"mdi mdi-login-variant",
+                //         "status"=>"success",
+                //         "user"=>null
+                //     ]
+                // );
                 $this->calcTotal($entity);
 
                 return $this->handleView($this->view($entity, Response::HTTP_OK));
@@ -169,16 +179,16 @@ class OrdersController extends FOSRestController
         if($entity->getStatus()==$entityStatus)
             return $this->handleView($this->view(array('message'=>'Debe seleccionar un estado diferente'), Response::HTTP_BAD_REQUEST));
         $oldStatusName=$entity->getStatus()->getName();
-        $this->get('ApiCall')->post($this->generateUrl('api_logs_post',[],UrlGenerator::ABSOLUTE_URL),
-        [
-            "title"=>"De '".$oldStatusName."' a '".$entityStatus->getName()."'",
-            "description"=> $content["comment"],
-            "resource"=>"order_number_".$entity->getId(),
-            "icon"=>"mdi mdi-alert-circle",
-            "status"=>$entityStatus->getColor(),
-            "user"=>$content["user"]
-        ]
-        );
+
+        $log = new Log();
+        $log->setTitle("De '".$oldStatusName."' a '".$entityStatus->getName()."'");
+        $log->setDescription($content["comment"]);
+        $log->setResource("order_number_".$entity->getId());
+        $log->setIcon('mdi mdi-alert-circle');
+        $log->setStatus($entityStatus->getColor());
+        $log->setUser($content["user"]);
+        $em->persist($log);
+        
         $entity->setStatus($entityStatus);
         $em->persist($entity);
         $em->flush();
