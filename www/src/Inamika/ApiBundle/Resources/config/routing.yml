@@ -15,3 +15,9 @@ api_customers:
 
 api_orders:
     resource: "@InamikaApiBundle/Resources/config/orders.yml"
+
+api_logs:
+    resource: "@InamikaApiBundle/Resources/config/logs.yml"
+
+api_ordersStatus:
+    resource: "@InamikaApiBundle/Resources/config/ordersStatus.yml"

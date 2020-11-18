@@ -18,12 +18,17 @@ use JMS\Serializer\Annotation\Expose;
  */
 class OrdersStatus
 {
+    const STATUS_ENTERED='ENTERED';
+    const STATUS_IN_PROCCESS='IN_PROCCESS';
+    const STATUS_ON_DELIVERY='ON_DELIVERY';
+    const STATUS_DELIVERED='DELIVERED';
+    const STATUS_CANCELLED='CANCELLED';
+
     /**
      * @var string
      *
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
      * @Expose
      */
     private $id;
@@ -74,6 +79,20 @@ class OrdersStatus
      */
     private $isDelete=false;
 
+
+    /**
+     * Set id.
+     *
+     * @param string $id
+     *
+     * @return OrdersStatus
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id.

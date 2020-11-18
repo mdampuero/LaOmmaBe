@@ -48,7 +48,6 @@ class OrdersController extends FOSRestController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entity->setStatus($this->getDoctrine()->getRepository(OrdersStatus::class)->findOneByIsDefault(true));
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
                 if(!isset($content['items']))
                     throw new Exception("Este valor no debería estar vacío.");
                 $items=$content['items'];
@@ -70,17 +69,20 @@ class OrdersController extends FOSRestController
                     $itemsArray[]=$ordersItem;
                 }
                 $entity->setItems($itemsArray);
+                $em->persist($entity);
                 $em->flush();
-                // $this->get('ApiCall')->post($this->generateUrl('api_logs_post',[],UrlGenerator::ABSOLUTE_URL),
-                //     [
-                //         "title"=>"Nuevo pedido",
-                //         "description"=> "Ingreso de pedido desde '".$entity->getChannel()."'",
-                //         "resource"=>"order_number_".$entity->getId(),
-                //         "icon"=>"mdi mdi-login-variant",
-                //         "status"=>"success",
-                //         "user"=>null
-                //     ]
-                // );
+
+                /** LOG */
+                $this->get('ApiCall')->post($this->generateUrl('api_logs_post',[],UrlGenerator::ABSOLUTE_URL),
+                    [
+                        "title"=>"Nuevo pedido",
+                        "description"=> "Ingreso de pedido desde '".$entity->getChannel()."'",
+                        "resource"=>"order_number_".$entity->getId(),
+                        "icon"=>"mdi mdi-login-variant",
+                        "status"=>"info",
+                        "user"=>null
+                    ]
+                );
                 $this->calcTotal($entity);
 
                 return $this->handleView($this->view($entity, Response::HTTP_OK));
@@ -157,4 +159,49 @@ class OrdersController extends FOSRestController
         return $this->handleView($this->view($form->getErrors(), Response::HTTP_BAD_REQUEST));
     }
 
+    public function changeOrderAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        if(!$entity=$em->getRepository(Orders::class)->find($id))
+            return $this->handleView($this->view(null, Response::HTTP_NOT_FOUND));
+        $content=json_decode($request->getContent(), true);
+        if(!$entityStatus=$em->getRepository(OrdersStatus::class)->find($content["status"]))
+            return $this->handleView($this->view(array('message'=>'Ocurrió un error inesperado'), Response::HTTP_NOT_FOUND));
+        if($entity->getStatus()==$entityStatus)
+            return $this->handleView($this->view(array('message'=>'Debe seleccionar un estado diferente'), Response::HTTP_BAD_REQUEST));
+        $oldStatusName=$entity->getStatus()->getName();
+        $this->get('ApiCall')->post($this->generateUrl('api_logs_post',[],UrlGenerator::ABSOLUTE_URL),
+        [
+            "title"=>"De '".$oldStatusName."' a '".$entityStatus->getName()."'",
+            "description"=> $content["comment"],
+            "resource"=>"order_number_".$entity->getId(),
+            "icon"=>"mdi mdi-alert-circle",
+            "status"=>$entityStatus->getColor(),
+            "user"=>$content["user"]
+        ]
+        );
+        $entity->setStatus($entityStatus);
+        $em->persist($entity);
+        $em->flush();
+        if($content["notify"]){
+            if($entity->getCustomerId()->getToken()){
+                /** Generar notificacion */
+                $result=$this->get('FirebaseNotifications')->push(
+                    [
+                        "notification"=>array("title"=>"Cambios en tu pedido #".$entity->getId(),"body"=>"Tu pedido cambió de estado '".$oldStatusName."' a '".$entityStatus->getName()."'"),
+                        "to"=> $entity->getCustomerId()->getToken()
+                    ]);
+                /** Fin Generar notificacion */
+            }
+            /** Enviar email */
+            $settings = $this->container->get('setting');
+            $message = (new \Swift_Message($this->get('setting')->getData()->getTitle().' - Cambios en tu pedido #'.$entity->getId()))
+            ->setFrom(array($this->getParameter('mailer_user')=>$this->get('setting')->getData()->getTitle()))
+            ->setTo($entity->getCustomerId()->getEmail())
+            ->setBody($this->renderView('InamikaBackOfficeBundle:Emails:Orders/changeStatus.html.twig', array('entity' => $entity,'status'=>$oldStatusName)),'text/html');
+            $this->get('mailer')->send($message);
+            /** Fin enviar email */
+        }
+
+        return $this->handleView($this->view($entityStatus, Response::HTTP_OK));
+    }
 }

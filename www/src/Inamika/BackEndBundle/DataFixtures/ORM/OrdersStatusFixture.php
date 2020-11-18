@@ -21,13 +21,47 @@ class OrdersStatusFixture extends AbstractFixture implements OrderedFixtureInter
     public function setContainer(ContainerInterface $container = null){
         $this->container = $container;
     }
-    
+    // const STATUS_ENTERED='ENTERED';
+    // const STATUS_IN_PROCCESS='IN_PROCCESS';
+    // const STATUS_ON_DELIVERY='ON_DELIVERY';
+    // const STATUS_DELIVERED='DELIVERED';
+    // const STATUS_CANCELLED='CANCELLED';
     public function load(ObjectManager $manager){
         $ordersStatus = new OrdersStatus();
-        $ordersStatus->setName("Nuevo");
-        $ordersStatus->setColor("#11EE11");
+        $ordersStatus->setId(OrdersStatus::STATUS_ENTERED);
+        $ordersStatus->setName('Ingresado');
+        $ordersStatus->setColor("info");
         $ordersStatus->setIsDefault(true);
         $manager->persist($ordersStatus);
+        
+        $ordersStatus = new OrdersStatus();
+        $ordersStatus->setId(OrdersStatus::STATUS_IN_PROCCESS);
+        $ordersStatus->setName('En proceso');
+        $ordersStatus->setColor("primary");
+        $ordersStatus->setIsDefault(false);
+        $manager->persist($ordersStatus);
+        
+        $ordersStatus = new OrdersStatus();
+        $ordersStatus->setId(OrdersStatus::STATUS_ON_DELIVERY);
+        $ordersStatus->setName('En entrega');
+        $ordersStatus->setColor("warning");
+        $ordersStatus->setIsDefault(false);
+        $manager->persist($ordersStatus);
+        
+        $ordersStatus = new OrdersStatus();
+        $ordersStatus->setId(OrdersStatus::STATUS_DELIVERED);
+        $ordersStatus->setName('Entregado');
+        $ordersStatus->setColor("success");
+        $ordersStatus->setIsDefault(false);
+        $manager->persist($ordersStatus);
+        
+        $ordersStatus = new OrdersStatus();
+        $ordersStatus->setId(OrdersStatus::STATUS_CANCELLED);
+        $ordersStatus->setName('Cancelado');
+        $ordersStatus->setColor("danger");
+        $ordersStatus->setIsDefault(false);
+        $manager->persist($ordersStatus);
+
         $manager->flush();
     }
     

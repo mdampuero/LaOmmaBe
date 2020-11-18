@@ -4,9 +4,9 @@
 {% block body %} 
 {{ parent()}}
 <h3 class="card-title">
-    {% if app.request.attributes.get('_route_params')._breadcrumbs is defined %}
+    {# {% if app.request.attributes.get('_route_params')._breadcrumbs is defined %}
         {{ (app.request.attributes.get('_route_params')['_breadcrumbs']|last)['label'] | trans }}
-    {% endif %}
+    {% endif %} #}
 </h3>
 <div class="table-responsive">
     <table id="{{ pathBase }}_dataTable" class="display nowrap table table-striped table-bordered" cellspacing="0" width="100%">
@@ -20,7 +20,7 @@
 {% endblock body %} 
 {% block javascripts %} 
 {{ parent() }}
-{% include 'InamikaBackOfficeBundle:_partials:dataTableScripts.html.twig' with { pathBase:pathBase,loadData:pathBaseApi } %}
+{% include 'InamikaBackOfficeBundle:_partials:dataTableScripts.html.twig' with { pathBase:pathBase,loadData:pathBaseApi, landingRedirect:true } %}
 <script type="text/javascript">
     $(function () {
         $('#{{ pathBase }}_dataTable').DataTable({

@@ -20,16 +20,16 @@
 			<div class="card bg-light">
 				<h4 class="card-header bg-info text-white">Cliente</h4>
 				<div class="card-body">
-					<h5 class="card-title">{{ data.customerId.name }}</h5>
+					<h5 class="card-title">{{ data.customer.name }}</h5>
 					<p class="card-text">
-						CUIT/CUIL:
-						{{ data.customerId.document }}<br/>
 						Email:
-						<a href="mailto:{{ data.customerId.email }}">{{ data.customerId.email }}</a><br/>
+						<a href="mailto:{{ data.customer.email }}">{{ data.customer.email }}</a><br/>
 						Teléfono:
-						{{ data.customerId.phone }}<br/>
+						{{ data.customer.phone }}<br/>
 						Dirección:
-						{{ data.customerId.address }}<br/>
+						{{ data.customer.address }}<br/>
+						Dirección:
+						{{ data.customer.city }}<br/>
 					</p>
 				</div>
 			</div>
@@ -63,16 +63,6 @@
 						<span class="badge badge-pill badge-success">{{ data.channel | upper }}</span>
 					{% endif %}</h5>
 					<p class="card-text">
-					{% if data.customerName %}
-						Cliente:
-						{{ data.customerName }}
-						<br/>
-					{% endif %}
-					{% if data.transport %}
-						Transporte:
-						{{ data.transport }}
-						<br/>
-					{% endif %}
 						Observaciones:
 						{{ data.observations | nl2br }}
 					</p>
@@ -98,10 +88,10 @@
 								<td class="text-center">{{ (loop.index ) }}</td>
 								<td>{{ item.code }}</td>
 								<td>{{ item.description }}</td>
-								<td class="text-right">{{ item.amount }}</td>
-								<td class="text-right">{{ item.productId.currency.symbol }}
-									{{ (item.subtotal / item.amount) | number_format(2, ',', '.')}}</td>
-								<td class="text-right">{{ item.productId.currency.symbol }}
+								<td class="text-right">{{ item.quantity }}</td>
+								<td class="text-right">{{ item.product.currency.symbol }}
+									{{ (item.subtotal / item.quantity) | number_format(2, ',', '.')}}</td>
+								<td class="text-right">{{ item.product.currency.symbol }}
 									{{ item.subtotal | number_format(2, ',', '.')}}</td>
 							</tr>
 						{% endfor %}
@@ -116,9 +106,9 @@
 					<b>Total S/I:
 					</b>{{ total.currency.symbol}}
 					{{ total.gross | number_format(2, ',', '.')}}</h4>
-				<h4>
+				{# <h4>
 					<b>IVA :</b>{{ total.currency.symbol}}
-					{{ total.vat | number_format(2, ',', '.')}}</h4>
+					{{ total.vat | number_format(2, ',', '.')}}</h4> #}
 				<h2>
 					<b>Total :</b>{{ total.currency.symbol}}
 					{{ total.total | number_format(2, ',', '.')}}</h2>

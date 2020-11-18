@@ -5,11 +5,8 @@ function loadTimeline(){
         type: 'GET',
         crossDomain: true,
         success: function(data) {
-            var html=`<li class="timeline-inverted" style="margin-bottom: 150px; margin-top: -35px;">
-                    <div class="timeline-badge success cursor-pointer" onclick="addTimeline()" >
-                        <i class="fa fa-plus"></i>
-                    </div>
-                </li>`;
+            console.log(data);
+            var html='';
             $.each( data, function( index, item ){
                 var classDirection=((index%2)==0)?'':'class="timeline-inverted"';
                 var d = new Date(item.createdAt);
@@ -32,12 +29,15 @@ function loadTimeline(){
                             </p>
                         </div>
                         <div class="timeline-body">
-                            <p>${nl2br(item.description)}</p>
+                            <p>${item.description}</p>
                         </div>
                     </div>
                 </li>`;
             });
+            if(data.length>0) 
             $("#timeline").html(html);
+            else
+            $("#timeline").html('<p>Aún no tiene ningún elemento en el historial</p>');
 
         },  
         complete:function(){
@@ -47,61 +47,7 @@ function loadTimeline(){
             
         }
     });
-}
-function addTimeline(){
-    let $timelineAdd=$("#timelineAdd");
-    if($timelineAdd.css('display')=='none')
-        $("#timelineAdd").slideDown("fast");
-    else
-        $("#timelineAdd").slideUp("fast");
-}
-function sendComment(btn){
-    let $btn=$(btn);
-    let btnHtml=$btn.html();
-    let val=$("#timelineCommentText").val();
-    $btn.attr('disabled',true);
-    $btn.html(getSpin('fa-1x'));
-    if (val == '') {
-        $.toast({
-        heading: 'Error',
-        text: 'Debe ingresar un comentario',
-        position: 'top-right',
-        icon: 'error',
-        hideAfter: 3000,
-        stack: 6
-        });
-        swal.close();
-        return false;
     }
-    $.ajax({
-        url: "{{ path('api_logs_post') }}",
-        type: 'POST',
-        data: JSON.stringify(
-        {
-            title: "Nota",
-            description: val,
-            resource: "units_comments_{{ entity.id }}",
-            icon: 'mdi mdi-note',
-            status: 'warning',
-            user: "{{ app.user.id }}"
-        }
-        ),
-        crossDomain: true,
-        success: function (data) {
-            loadTimeline();
-            $.toast({
-                heading: 'Correcto',
-                text: 'El comentario fue guardado',
-                position: 'top-right',
-                icon: 'success',
-                hideAfter: 3000,
-                stack: 6
-            });
-        },
-        complete: function () { addTimeline(); $btn.attr('disabled',false); $btn.html(btnHtml); $("#timelineCommentText").val('')},
-        error: function (data, status, error) {}
-    });
-}
 $(function (){
     loadTimeline();
 });
